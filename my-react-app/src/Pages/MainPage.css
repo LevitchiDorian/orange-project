@@ -1,0 +1,106 @@
+/* MainPage.css */
+
+.main-page {
+    font-family: Arial, sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #f4f4f4;
+}
+
+.header {
+    background-color: #FF4500;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.logo {
+    max-width: 100px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.categories {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+    background-color: #FF4500;
+}
+
+.category-button {
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+    color: #333;
+}
+
+.recommendations-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px 10px 0 0;
+    margin-top: -10px;
+}
+
+.recommendations-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.restaurant-recommendations {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.restaurant-card {
+    background-color: #f0f0f0;
+    width: 30%;
+    height: 150px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.about-us {
+    background-color: #FFF5E6;
+    padding: 40px;
+    border-radius: 0 0 10px 10px;
+}
+
+.about-us h2 {
+    margin-top: 0;
+}
+
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.footer-logo {
+    max-width: 80px;
+    margin-bottom: 10px;
+}
+
+.contacts {
+    margin: 10px 0;
+}
+
+.contacts p {
+    margin: 5px 0;
+}
