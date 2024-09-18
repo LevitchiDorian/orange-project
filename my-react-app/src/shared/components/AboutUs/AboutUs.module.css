@@ -2,6 +2,8 @@
     display: block;
     margin: 0; 
     padding: 0;
+    
+    
   }
 
 .aboutUs {
@@ -22,6 +24,7 @@
   .aboutUs p {
     font-size: 1.2rem;
     color: #666;
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
+    
   }

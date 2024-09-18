@@ -5,13 +5,25 @@ body, html {
   margin: 0;
   padding: 0;
   font-family: "Montserrat", sans-serif;
-  background-color: #C92D18;
 }
 
 .app {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.background-blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(201, 45, 24, 0.7); /* Strat semitransparent */
+  filter: blur(15px); /* Blurează fundalul */
+  z-index: -1; /* Asigură că fundalul este sub conținut */
 }
 
 .header {
@@ -51,14 +63,14 @@ h1 {
 
 .main-content {
   flex: 1;
-  margin-left: 200px ;
+  margin-left: 200px;
   margin-right: 200px;
   border-radius: 81px;
   top: 528px;
-  background-color: #ffff; /* Adaugă o culoare de fundal pentru vizibilitate */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Opțional, pentru un efect de umbră */
+  background-color: #ffff; /* Fundal alb */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(0, 0, 0, 0.23); /* Umbra 3D */
+  border: 2px solid rgba(0, 0, 0, 0.1); /* Contur fin */
 }
-
 .recommendations {
   color: #202125;
   text-align: center;
@@ -92,18 +104,64 @@ h1 {
 }
 
 .footer {
-  background-color: #202125;
+  background: #181a1b; /* Fundal mai întunecat */
   color: white;
-  padding: 20px;
   text-align: center;
-  position:
+  padding: 20px;
+  border-top: 1px solid #333;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6); /* Umbră mai pronunțată */
+  position: relative; /* Pentru a folosi poziționare relativă în animație */
 }
 
-.contacts {
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contacts, .copyright {
   margin: 10px 0;
+  font-size: 16px; /* Mărimea fontului îmbunătățită */
+  line-height: 1.5; /* Îmbunătățirea distanței dintre linii */
+  opacity: 0; /* Textul începe ca invizibil */
+  transform: translateX(-50px); /* Textul începe puțin mai la stânga */
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Tranziție mai lungă și lină */
 }
 
-.copyright {
-  font-size: 12px;
-  margin-top: 10px;
+/* Animație pentru textul care apare de la stânga la dreapta */
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
+
+/* Aplicarea întârzierei fiecărui element */
+.scroll-animate .contacts:nth-child(1) {
+  animation: slideInFromLeft 0.6s ease-out forwards;
+  animation-delay: 0s;
+}
+
+.scroll-animate .contacts:nth-child(2) {
+  animation: slideInFromLeft 0.6s ease-out forwards;
+  animation-delay: 0.2s; /* Întârziere de 0.2s */
+}
+
+.scroll-animate .contacts:nth-child(3) {
+  animation: slideInFromLeft 0.6s ease-out forwards;
+  animation-delay: 0.4s; /* Întârziere de 0.4s */
+}
+
+.scroll-animate .copyright {
+  animation: slideInFromLeft 0.6s ease-out forwards;
+  animation-delay: 0.6s; /* Întârziere de 0.6s */
+}
+
+
+
+
+

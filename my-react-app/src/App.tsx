@@ -7,6 +7,7 @@ import './App.css';
 const App: React.FC = () => {
   return (
     <div className="app">
+      <div className="background-blur"></div>
       <Header />
       <MainContent />
       <Footer />
