@@ -1,42 +1,109 @@
-/* #root {
-  width: 100vh;
-  margin: 0 auto;
-  padding: 2rem;
+/* App.css */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+body, html {
+  height: 100%; /* Asigură că pagina ocupă întreaga înălțime */
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+  background-color: #C92D18;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  color: white;
+  padding: 20px;
   text-align: center;
+  
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  text-align: left;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h1 {
+  font-size: 24px;
+  margin: 10px 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.categories {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-.card {
-  padding: 2em;
+.category-button {
+  background-color: white;
+  border: none;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  margin: 0 10px;
+  cursor: pointer;
+  font-size: 12px;
 }
 
-.read-the-docs {
-  color: #888;
-} */
+.main-content {
+  flex: 1;
+  margin-left: 200px ;
+  margin-right: 200px;
+  border-radius: 81px;
+  top: 528px;
+  background-color: #ffff; /* Adaugă o culoare de fundal pentru vizibilitate */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Opțional, pentru un efect de umbră */
+}
+
+.recommendations {
+  color: #202125;
+  text-align: center;
+  font-weight: black;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.restaurant-slider {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.restaurant-card {
+  background-color: #f0f0f0;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.slider-arrow {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.footer {
+  background-color: #202125;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  position:
+}
+
+.contacts {
+  margin: 10px 0;
+}
+
+.copyright {
+  font-size: 12px;
+  margin-top: 10px;
+}

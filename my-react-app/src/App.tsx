@@ -1,17 +1,17 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { MainPage } from "./pages/MainPage";
-
+import React from 'react';
+import Header from './shared/components/Header/Header';
+import Footer from './shared/components/Footer/Footer';
+import MainContent from './shared/components/MainContent/MainContent';
+import './App.css';
 
 const App: React.FC = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        {/* Aici poți adăuga alte rute */}
-      </Routes>
-    </Router>
+    <div className="app">
+      <Header />
+      <MainContent />
+      <Footer />
+    </div>
   );
-};
+}
 
 export default App;

@@ -1,15 +1,19 @@
+import React from 'react';
 
-import styles from './Header.module.css'
-
-export const Header = () =>{
-    return <header className={styles.header}>
-        <nav className={styles.navbar}>
-            <h1>Logo</h1>
-            <ul className={styles.navbarList}>
-                <li>Rezervations</li>
-                <li>About Us</li>
-                <li>Contact</li>
-            </ul>
-        </nav>
+const Header: React.FC = () => {
+  return (
+    <header className="header">
+      <div className="logo">Logo</div>
+      <h1>Descoperă Restaurantele Chișinăului</h1>
+      <div className="categories">
+        <button className="category-button">Traditional</button>
+        <button className="category-button">Asiatic</button>
+        <button className="category-button">Burger</button>
+        <button className="category-button">Kebab</button>
+        <button className="category-button">Cafea</button>
+      </div>
     </header>
+  );
 }
+
+export default Header;
