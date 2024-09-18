@@ -1,0 +1,16 @@
+.container {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+
+  }
+  
+  .box {
+    width: 80%;
+    background-color: #f9f9f9;
+    color:darkslategrey ;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    border-radius: 15px; 
+  }
