@@ -1,7 +1,30 @@
-import React from 'react';
-import styles from './AboutUs.module.css'; // Asigură-te că ai un fișier CSS corespunzător
+import React, { useEffect, useRef, useState } from 'react';
+import styles from './AboutUs.module.css';
 
 export const AboutUs: React.FC = () => {
+  const [isInView, setIsInView] = useState(false);
+  const aboutUsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (aboutUsRef.current) {
+        const rect = aboutUsRef.current.getBoundingClientRect();
+        if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
+          setIsInView(true);
+        } else {
+          setIsInView(false);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const aboutText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...";
+
   return (
     <>
       <svg
@@ -18,10 +41,18 @@ export const AboutUs: React.FC = () => {
           fill="#FFEFDD"
         />
       </svg>
-      <section className={styles.aboutUs}>
+      <section className={styles.aboutUs} ref={aboutUsRef}>
         <h2>About Us</h2>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...
+          {aboutText.split(' ').map((word, index) => (
+            <span
+              key={index}
+              className={`${styles.textLine} ${isInView ? styles.complexFadeIn : styles.complexFadeOut}`}
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              {word}{' '}
+            </span>
+          ))}
         </p>
       </section>
     </>
