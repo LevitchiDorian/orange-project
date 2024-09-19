@@ -6,7 +6,6 @@
     top: 528px;
     background-color: #ffff;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(0, 0, 0, 0.23);
-    padding: 20px;
     animation: fadeIn 1s ease-in-out;
   }
   
@@ -49,7 +48,7 @@
     overflow: hidden;
     max-width: 800px;
     margin: 0 auto;
-    padding: 10px 70px;
+    padding: 10px 145px;
   }
   
   .restaurant-card-container {
@@ -136,11 +135,11 @@
   }
   
   .left {
-    left: 15px; /* Poziționare ajustată */
+    left: 20px; /* Poziționare ajustată */
   }
   
   .right {
-    right: 17px; /* Poziționare ajustată */
+    right: 30px; /* Poziționare ajustată */
   }
   
   .svg-icon {
