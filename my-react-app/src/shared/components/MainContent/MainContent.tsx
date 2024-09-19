@@ -1,6 +1,7 @@
 import React from 'react';
 import { AboutUs } from '../AboutUs/AboutUs'; // Importă componenta AboutUs
 import './MainContent.module.css';
+import RestaurantMenu from '../RestaurantMenu/RestaurantMenu';
 const MainContent: React.FC = () => {
   return (
     <main className="main-content">
@@ -17,6 +18,7 @@ const MainContent: React.FC = () => {
 
       {/* Adaugă componenta AboutUs */}
       <AboutUs />
+      <RestaurantMenu/>
     </main>
   );
 }
