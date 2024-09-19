@@ -1,0 +1,57 @@
+.footer {
+    background: #181a1b; /* Fundal mai întunecat */
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid #333;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6); /* Umbră mai pronunțată */
+    position: relative; /* Pentru a folosi poziționare relativă în animație */
+  }
+  
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .contacts, .copyright {
+    margin: 10px 0;
+    font-size: 16px; /* Mărimea fontului îmbunătățită */
+    line-height: 1.5; /* Îmbunătățirea distanței dintre linii */
+    opacity: 0; /* Textul începe ca invizibil */
+    transform: translateX(-50px); /* Textul începe puțin mai la stânga */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Tranziție mai lungă și lină */
+  }
+  
+  /* Animație pentru textul care apare de la stânga la dreapta */
+  @keyframes slideInFromLeft {
+    0% {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  /* Aplicarea întârzierei fiecărui element */
+  .scroll-animate .contacts:nth-child(1) {
+    animation: slideInFromLeft 0.6s ease-out forwards;
+    animation-delay: 0s;
+  }
+  
+  .scroll-animate .contacts:nth-child(2) {
+    animation: slideInFromLeft 0.6s ease-out forwards;
+    animation-delay: 0.2s; /* Întârziere de 0.2s */
+  }
+  
+  .scroll-animate .contacts:nth-child(3) {
+    animation: slideInFromLeft 0.6s ease-out forwards;
+    animation-delay: 0.4s; /* Întârziere de 0.4s */
+  }
+  
+  .scroll-animate .copyright {
+    animation: slideInFromLeft 0.6s ease-out forwards;
+    animation-delay: 0.6s; /* Întârziere de 0.6s */
+  }

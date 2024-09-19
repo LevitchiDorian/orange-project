@@ -4,13 +4,14 @@ import asiaticImg from './categoryImages/asiatic.png';
 import burgerImg from './categoryImages/burger.jpg';
 import kebabImg from './categoryImages/kebab.jpg';
 import cafeaImg from './categoryImages/cafea.jpg';
-import './Header.module.css';
+import './Header.css';
 
 const Header: React.FC = () => {
   return (
     <header className="header">
       <div className="logo">Logo</div>
       <h1>Descoperă Restaurantele din Chișinău</h1>
+      <h3>Alege categoria dorită:</h3>
       <div className="categories">
         <div className="category">
           <button className="category-button">

@@ -1,0 +1,149 @@
+.main-content {
+    flex: 1;
+    margin-left: 200px;
+    margin-right: 200px;
+    border-radius: 81px;
+    top: 528px;
+    background-color: #ffff;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(0, 0, 0, 0.23);
+    padding: 20px;
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  /* Fade-in animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .recommendations {
+    color: #202125;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 80px;
+    margin-bottom: 20px;
+    font-size: 24px;
+    letter-spacing: 1.5px;
+    animation: slideDown 1s ease;
+  }
+  
+  /* Slide down animation for text */
+  @keyframes slideDown {
+    from {
+      transform: translateY(-30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .restaurant-slider {
+    position: relative;
+    overflow: hidden;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 10px 70px;
+  }
+  
+  .restaurant-card-container {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .restaurant-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .restaurant-card {
+    background-color: #f0f0f0;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  
+  .restaurant-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Hover effects on card */
+  .restaurant-wrapper:hover .restaurant-card {
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05); /* Slightly enlarge on hover */
+  }
+  
+  .restaurant-wrapper:hover .restaurant-image {
+    transform: scale(1.1); /* Slight zoom on image */
+  }
+  
+  .restaurant-name {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #202125;
+    text-align: center;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+  }
+  
+  /* Hover effect on text */
+  .restaurant-name:hover {
+    color: #ff6b6b; /* Change text color on hover */
+  }
+  
+  .slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    color: white;
+    width: 40px; /* Dimensiune mai mare pentru săgeți */
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Umbră mai pronunțată */
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* Efect de hover pe săgeți */
+  .slider-arrow:hover {
+    background: rgba(255, 105, 105, 0.8); /* Schimbare la o culoare roșiatică */
+    transform: translateY(-50%) scale(1.2); /* Mărire ușoară la hover */
+    box-shadow: 0 6px 16px rgba(255, 105, 105, 0.4); /* Umbră mai accentuată la hover */
+  }
+  
+  .left {
+    left: 15px; /* Poziționare ajustată */
+  }
+  
+  .right {
+    right: 17px; /* Poziționare ajustată */
+  }
+  
+  .svg-icon {
+    fill: white; /* Asigură-te că săgețile sunt albe */
+    stroke: white; /* Asigură-te că liniile sunt albe */
+  }
+  

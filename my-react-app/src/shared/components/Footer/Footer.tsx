@@ -1,5 +1,6 @@
 import React from 'react';
 import './scrollAnimation';
+import './Footer.css'
 
 const Footer: React.FC = () => {
   return (
