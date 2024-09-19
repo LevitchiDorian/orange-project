@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { AboutUs } from '../AboutUs/AboutUs'; // Importă componenta AboutUs
-import RestaurantMenu from '../RestaurantMenu/RestaurantMenu';
 
 // Importă imaginile corect folosind calea relativă
 import AndysImage from './RecommendationsImg/Andys.png';
@@ -70,7 +69,6 @@ const MainContent: React.FC = () => {
 
       {/* Adaugă componenta AboutUs */}
       <AboutUs />
-      <RestaurantMenu />
     </main>
   );
 };

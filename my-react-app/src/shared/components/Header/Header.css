@@ -4,25 +4,18 @@
   color: white;
   padding: 20px;
   text-align: center;
-  
 }
 
-.logo {
-  text-align: left;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-h1 {
+.header h1 {
   font-size: 28px;
   margin: 10px 0;
 }
 
-h3{
+.header h3{
   font-size: 15px;
 }
 
-h2 {
+.header h2 {
   font-size: 30px;
 }
 

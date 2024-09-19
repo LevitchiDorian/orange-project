@@ -8,16 +8,27 @@
     position: relative; /* Pentru a folosi poziționare relativă în animație */
   }
   
-  .footer-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .logo{
+    font-size: 1.3em;
+    font-weight: 900;
   }
-  
-  .contacts, .copyright {
+
+  .contacts{
     margin: 10px 0;
-    font-size: 16px; /* Mărimea fontului îmbunătățită */
-    line-height: 1.5; /* Îmbunătățirea distanței dintre linii */
+    font-size: 14px;
+    font-weight: 300;
+  }
+
+  .contacts h6{
+    font-size: 16px;
+  }
+
+  .copyright{
+    padding-top: 30px;
+    font-size: 10px;
+  }
+
+  .contacts, .copyright {
     opacity: 0; /* Textul începe ca invizibil */
     transform: translateX(-50px); /* Textul începe puțin mai la stânga */
     transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Tranziție mai lungă și lină */

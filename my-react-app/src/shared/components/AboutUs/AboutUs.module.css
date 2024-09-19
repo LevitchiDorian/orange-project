@@ -1,36 +1,30 @@
 .svg {
   display: block;
-  margin: 0;
-  padding: 10;
+  margin: 10;
+  padding: 100;
 }
 
 .aboutUs {
-  text-align: center;
+  text-align: start;
   background-color: #FFEFDD;
-  padding: 2rem;
-  margin: 0;
+  margin: 0 auto;
+  color: #181a1b;
 }
 
 .aboutUs h2 {
   font-size: 2.5rem;
-  margin-bottom: 1rem;
-  color: #333;
 }
 
 .aboutUs p {
   font-size: 1.2rem;
-  color: #666;
   max-width: 800px;
-  margin: 0 auto;
 }
 
-/* Animație pentru fiecare cuvânt */
-.textLine {
+/* .textLine {
   display: inline-block;
   opacity: 0;
 }
 
-/* Animație complexă pentru apariție */
 .complexFadeIn {
   animation: complexFadeIn 0.8s forwards ease-out;
 }
@@ -50,7 +44,6 @@
   }
 }
 
-/* Animație complexă pentru dispariție */
 .complexFadeOut {
   animation: complexFadeOut 0.8s forwards ease-out;
 }
@@ -68,4 +61,4 @@
     opacity: 0;
     transform: translateY(30px) scale(0.8) rotate(-10deg);
   }
-}
+} */
