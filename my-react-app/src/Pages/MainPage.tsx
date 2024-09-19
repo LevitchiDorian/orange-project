@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { CategoryList } from "../shared/components/Category/Category";
 import { RestaurantRecommendations } from "../shared/components/RestaurantRecommendations";
-import { Restaurant } from "../entities/restaurant";
+import { Restaurant } from "../Entities/restaurant";
 import "./MainPage.css"; // Pentru stiluri
 import { Header } from "../shared/components/Header/Header";
 import { Container } from "../shared/components/Container/Container";
+import React from "react";
 
 const mockRecommendations: Restaurant[] = [
   { id: 1, name: "McDonald's", category: "Burger", image: "/path/to/image1" },
@@ -12,7 +13,7 @@ const mockRecommendations: Restaurant[] = [
   { id: 3, name: "Mr Kebab", category: "Kebab", image: "/path/to/image3" },
 ];
 
-export const MainPage = () => {
+const MainPage = () => {
   const [recommendations, setRecommendations] = useState<Restaurant[]>([]);
 
   useEffect(() => {
@@ -21,25 +22,25 @@ export const MainPage = () => {
 
   return (
     <div className="main-page">
-      <Header/>
-        <CategoryList />
-        <Container>
-          <>
-            <section className="recommendations-section">
-          <h2>Recomandam</h2>
-          <RestaurantRecommendations recommendations={recommendations} />
-         </section>
+      <Header />
+      <CategoryList />
+      <Container>
+        <>
+          <section className="recommendations-section">
+            <h2>Recomandam</h2>
+            <RestaurantRecommendations recommendations={recommendations} />
+          </section>
 
           <section className="about-us">
-         <h2>About Us</h2>
-         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...
-          </p>
+            <h2>About Us</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...
+            </p>
           </section>
-          </>
-        </Container>
+        </>
+      </Container>
 
-      
+
 
       <footer className="footer">
         <div className="footer-content">
@@ -55,3 +56,5 @@ export const MainPage = () => {
     </div>
   );
 };
+
+export default MainPage 

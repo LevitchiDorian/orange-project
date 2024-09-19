@@ -1,17 +1,16 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { MainPage } from "./pages/MainPage";
+import { BrowserRouter } from "../node_modules/react-router-dom/dist/index";
+import { Routing } from "./router/index";
+import { Provider } from 'react-redux';
+import { store } from './app/store';
 
 
-const App: React.FC = () => {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        {/* Aici poți adăuga alte rute */}
-      </Routes>
-    </Router>
-  );
-};
+const App: React.FC = () => (
+  <Provider store={store}>
+    <BrowserRouter>
+      <Routing />
+    </BrowserRouter>
+  </Provider>
+);
 
 export default App;

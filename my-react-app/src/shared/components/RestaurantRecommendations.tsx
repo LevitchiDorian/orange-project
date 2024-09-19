@@ -1,5 +1,5 @@
 import React from 'react';
-import { Restaurant } from '../../entities/restaurant';
+import { Restaurant } from '../../Entities/restaurant';
 
 
 interface Props {
