@@ -1,0 +1,29 @@
+.navbar{
+    margin-left: 200px;
+    margin-right: 200px;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #FFFFFF;
+}
+
+.navbar .logo{
+    font-weight: 800;
+}
+
+.navbar .cart{
+    position: relative;
+    font-size: 1.3em;
+}
+
+/* Nu stergeti */
+/* .cart .dot{
+    position: absolute;
+    min-width: 10px;
+    min-height: 10px;
+    background-color: #FFEFDD;
+    border-radius: 5px;
+    top: -4px;
+    right: -9px;
+} */

@@ -9,7 +9,6 @@ import './Header.css';
 const Header: React.FC = () => {
   return (
     <header className="header">
-      <div className="logo">Logo</div>
       <h1>Descoperă Restaurantele din Chișinău</h1>
       <h3>Alege categoria dorită:</h3>
       <div className="categories">
