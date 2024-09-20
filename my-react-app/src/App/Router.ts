@@ -1,6 +1,6 @@
 export enum AppRoutes {
-    MAIN = '/',
-    PAGE_ONE = '/page-one',
-    PAGE_TWO = '/page-two',
+    MAIN = '/main',
+    CART = '/cart',
+    ORDER_TYPE = '/order-type',
     PAGE_THREE = '/page-three',
   }
