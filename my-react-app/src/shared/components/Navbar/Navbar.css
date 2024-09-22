@@ -10,11 +10,13 @@
 
 .navbar .logo{
     font-weight: 800;
+    cursor: pointer;
 }
 
 .navbar .cart{
     position: relative;
     font-size: 1.3em;
+    cursor: pointer;
 }
 
 /* Nu stergeti */

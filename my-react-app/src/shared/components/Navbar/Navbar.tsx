@@ -3,16 +3,16 @@ import { ShoppingCartOutlined } from '@ant-design/icons'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const navigate = useNavigate();
 
 const Navbar: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <div className='navbar'>
       <div className='logo'>
-        {/* <div onClick={() => navigate('/cart')}> ReadyToEat</div> */}
+        <div onClick={() => navigate('/main')}> ReadyToEat</div>
       </div>
       <div className='cart'>
-        <a href="#cart"><ShoppingCartOutlined /></a>
+      <div onClick={() => navigate('/cart')}><ShoppingCartOutlined /></div>
         {/* <div className="dot"></div> */}
       </div>
     </div>
