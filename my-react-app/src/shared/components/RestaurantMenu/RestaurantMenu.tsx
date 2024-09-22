@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import MenuItem from '../MenuItem/MenuItem';
-import Pagination from '../Pagination/Pagination'; // Import the Pagination component
+import Pagination from '../Pagination/Pagination'; 
 import styles from './RestaurantMenu.module.css';
 
 interface MenuItemType {
@@ -23,28 +23,24 @@ const RestaurantMenu = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [currentItems, setCurrentItems] = useState<MenuItemType[]>([]);
-  const [cart, setCart] = useState<CartItem[]>([]); // Cart state to hold added items
-  const [isCartLoaded, setIsCartLoaded] = useState(false); // Track if cart is loaded from localStorage
+  const [cart, setCart] = useState<CartItem[]>([]); 
+  const [isCartLoaded, setIsCartLoaded] = useState(false); 
 
   const itemsPerPage = 1;
   const totalPages = Math.ceil(menuItems.length / itemsPerPage);
 
-  // Load cart from localStorage on initial load
   useEffect(() => {
-    const storedCart = localStorage.getItem('cart');
-    if (storedCart) {
-      console.log("Loading cart from localStorage:", storedCart);
-      setCart(JSON.parse(storedCart));
-    } else {
-      console.log("No cart found in localStorage.");
+    if (!isCartLoaded) { 
+      const storedCart = localStorage.getItem('cart');
+      if (storedCart) {
+        setCart(JSON.parse(storedCart));
+      }
+      setIsCartLoaded(true); 
     }
-    setIsCartLoaded(true); // Mark the cart as loaded
-  }, []);
+  }, [isCartLoaded]);
 
-  // Save cart to localStorage whenever the cart state changes, but only after it has been loaded
   useEffect(() => {
     if (isCartLoaded) {
-      console.log("Saving cart to localStorage:", cart);
       localStorage.setItem('cart', JSON.stringify(cart));
     }
   }, [cart, isCartLoaded]);
@@ -55,7 +51,6 @@ const RestaurantMenu = () => {
     setCurrentItems(menuItems.slice(indexOfFirstItem, indexOfLastItem));
   }, [currentPage]);
 
-  // Function to handle adding items to the cart
   const addToCart = (menuItem: MenuItemType, quantity: number) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.id === menuItem.id);
@@ -67,10 +62,7 @@ const RestaurantMenu = () => {
       } else {
         updatedCart = [...prevCart, { ...menuItem, quantity }];
       }
-
-      console.log("Updated Cart: ", updatedCart);
-
-      return updatedCart; // Return the updated cart
+      return updatedCart;
     });
   };
 
@@ -80,8 +72,8 @@ const RestaurantMenu = () => {
         {currentItems.map((item) => (
           <MenuItem
             key={item.id}
-            menuItem={item} // Pass the entire menuItem object
-            onAddToCart={addToCart} // Pass the addToCart function
+            menuItem={item}
+            onAddToCart={addToCart}
           />
         ))}
       </div>

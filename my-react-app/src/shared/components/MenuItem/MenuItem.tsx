@@ -23,7 +23,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, onAddToCart }) => {
   };
 
   const handleAddToCart = () => {
-    onAddToCart(menuItem, quantity);  // Pass the full menuItem object
+    onAddToCart(menuItem, quantity);
   };
 
   return (
@@ -38,7 +38,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, onAddToCart }) => {
         <span className={styles.price}>{menuItem.price}</span>
 
         <div className={styles.actionButtons}>
-          <QuantitySelector onQuantityChange={handleQuantityChange} />
+          <QuantitySelector onQuantityChange={handleQuantityChange} initialQuantity={quantity} />
           <button className={styles.addButton} onClick={handleAddToCart}>
             Add
           </button>

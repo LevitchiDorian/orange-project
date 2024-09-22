@@ -4,9 +4,14 @@ import styles from './QuantitySelector.module.css';
 interface QuantitySelectorProps {
   initialQuantity?: number;
   onQuantityChange?: (quantity: number) => void;
+  allowZero?: boolean; 
 }
 
-const QuantitySelector: React.FC<QuantitySelectorProps> = ({ initialQuantity = 1, onQuantityChange }) => {
+const QuantitySelector: React.FC<QuantitySelectorProps> = ({
+  initialQuantity = 1,
+  onQuantityChange,
+  allowZero = false,
+}) => {
   const [quantity, setQuantity] = useState(initialQuantity);
 
   const handleIncrease = () => {
@@ -16,7 +21,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({ initialQuantity = 1
   };
 
   const handleDecrease = () => {
-    if (quantity > 1) {
+    if (allowZero || quantity > 1) {
       const newQuantity = quantity - 1;
       setQuantity(newQuantity);
       if (onQuantityChange) onQuantityChange(newQuantity);
@@ -30,7 +35,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({ initialQuantity = 1
         type="number" 
         value={quantity} 
         className={styles.quantityInput} 
-        min={1} 
+        min={allowZero ? 0 : 1} 
         readOnly 
       />
       <button className={styles.quantityBtn} onClick={handleIncrease}>+</button>

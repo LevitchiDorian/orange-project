@@ -51,7 +51,7 @@
 
 .cart-actions button {
     padding: 15px 30px;
-    background-color: #d9534f; /* Culoare buton */
+    background-color: #d9534f;
     color: white;
     border: none;
     border-radius: 5px;
@@ -60,5 +60,5 @@
 }
 
 .cart-actions button:hover {
-    background-color: #c9302c; /* Culoare hover buton */
+    background-color: #c9302c;
 }
