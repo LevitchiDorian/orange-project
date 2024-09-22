@@ -4,5 +4,5 @@ export enum AppRoutes {
     ORDER_TYPE = '/order-type',
     TAKEAWAY = '/order-type/takeaway',
     IN_RESTAURANT  = '/order-type/in-restaurant',
-    PAGE_THREE = '/page-three',
+    CATEGORY_PAGE = '/category-page',
   }
