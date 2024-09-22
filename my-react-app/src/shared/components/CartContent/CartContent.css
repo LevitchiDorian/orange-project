@@ -11,7 +11,7 @@
     color: #181a1b;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centrare pe orizontală */
+    align-items: center; /* Centrează conținutul pe orizontală */
     justify-content: space-between; /* Distribuie spațiu între elemente */
 }
 
@@ -21,7 +21,6 @@
     margin: 20px; /* Adaugă spațiu sub header */
 }
 
-
 .cart-title {
     font-size: 32px;
     font-weight: 800;
@@ -30,15 +29,36 @@
 
 .cart-items {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 300px; /* Înălțimea minimă a containerului */
-    border: 2px dashed #ccc; /* Linie punctată pentru a marca locul itemelor */
-    text-align: center;
-    color: #999;
-    font-size: 18px;
+    flex-direction: column;
+    gap: 20px; /* Spațiu între iteme */
+    margin-top: 20px;
+    margin-bottom: 40px;
 }
 
-.cart-items::before {
-    content: "Aici vor apărea produsele adăugate în coș.";
+.cart-item {
+    background-color: #f1f1f1; /* Fundal gri deschis */
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.cart-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.cart-actions button {
+    padding: 15px 30px;
+    background-color: #d9534f; /* Culoare buton */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.cart-actions button:hover {
+    background-color: #c9302c; /* Culoare hover buton */
 }
