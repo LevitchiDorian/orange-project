@@ -12,11 +12,11 @@ const CartContent: React.FC = () => {
         <div className="cart-item">
           {/* Placeholder pentru iteme din coș */}
           <h3>Produs 1</h3>
-          <p>Detalii produs</p>
+          <p>Detalii produs...</p>
         </div>
         <div className="cart-item">
           <h3>Produs 2</h3>
-          <p>Detalii produs</p>
+          <p>Detalii produs...</p>
         </div>
       </div>
 
