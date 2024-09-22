@@ -1,13 +1,16 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { AppRoutes } from '../app/Router';
 import MainPage from '../pages/MainPage/MainPage';
 import Cart from '../pages/CartPage/Cart';
 import OrderType from '../pages/OrderType/OrderType';
+import MenuPage from '../pages/MenuPage/ui/MenuPage';
+
 export const Routing = () => (
-    <Routes>
-        <Route path="/" element={<Navigate to={AppRoutes.MAIN} />} />
-        <Route path={AppRoutes.MAIN} element={< MainPage />} ></Route>
-        <Route path={AppRoutes.CART} element={< Cart />} ></Route>
-        <Route path={AppRoutes.ORDER_TYPE} element={< OrderType />} ></Route>
-    </Routes>
-)
+  <Routes>
+    <Route path={AppRoutes.MAIN} element={<MainPage />} />
+    <Route path={AppRoutes.CART} element={<Cart />} />
+    <Route path={AppRoutes.ORDER_TYPE} element={<OrderType />} />
+    <Route path={AppRoutes.TAKEAWAY} element={<MenuPage />} />
+    <Route path={AppRoutes.IN_RESTAURANT} element={<MenuPage />} />
+  </Routes>
+);

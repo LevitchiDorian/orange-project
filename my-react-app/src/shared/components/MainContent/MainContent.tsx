@@ -6,8 +6,11 @@ import McImage from './RecommendationsImg/Mc.png';
 import MrKebabImage from './RecommendationsImg/Mrkebab.png';
 import TwisterImage from './RecommendationsImg/Twister.png';
 import './MainContent.css';
+import { useNavigate } from 'react-router-dom';
+import { AppRoutes } from '../../../app/Router';
 
 const MainContent: React.FC = () => {
+  const navigate = useNavigate();
   const restaurants = [
     { name: "McDonald's", image: McImage },
     { name: "Andy's", image: AndysImage },
@@ -48,7 +51,7 @@ const MainContent: React.FC = () => {
           <div className="restaurant-card-container">
             {getVisibleRestaurants().map((restaurant, index) => (
               <div key={index} className="restaurant-wrapper">
-                <div className="restaurant-card">
+                <div onClick={() => navigate(AppRoutes.ORDER_TYPE)} className="restaurant-card">
                   <img src={restaurant.image} alt={restaurant.name} className="restaurant-image" />
                 </div>
                 <span className="restaurant-name">{restaurant.name}</span>
