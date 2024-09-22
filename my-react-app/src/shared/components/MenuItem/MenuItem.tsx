@@ -1,4 +1,5 @@
 import React from 'react';
+import QuantitySelector from '../QuantitySelector/QuantitySelector'; 
 import styles from './MenuItem.module.css';
 
 interface MenuItemProps {
@@ -9,6 +10,10 @@ interface MenuItemProps {
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({ name, description, price, image }) => {
+  const handleQuantityChange = (quantity: number) => {
+    console.log(`Selected quantity for ${name}: ${quantity}`);
+  };
+
   return (
     <div className={styles.card}>
       <div className={styles.imageContainer}>
@@ -21,11 +26,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ name, description, price, image }) 
         <span className={styles.price}>{price}</span>
 
         <div className={styles.actionButtons}>
-          <div className={styles.quantityWrapper}>
-            <button className={styles.quantityBtn}>-</button>
-            <input type="number" defaultValue={1} className={styles.quantityInput} min={1} />
-            <button className={styles.quantityBtn}>+</button>
-          </div>
+          <QuantitySelector onQuantityChange={handleQuantityChange} />
           <button className={styles.addButton}>Add</button>
         </div>
       </div>
