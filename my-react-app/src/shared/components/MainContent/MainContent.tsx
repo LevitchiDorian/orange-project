@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
-import { AboutUs } from '../AboutUs/AboutUs'; // Importă componenta AboutUs
-
-// Importă imaginile corect folosind calea relativă
+import { AboutUs } from '../AboutUs/AboutUs'; 
 import AndysImage from './RecommendationsImg/Andys.png';
 import LaPlacinteImage from './RecommendationsImg/Laplacinte.jpg';
 import McImage from './RecommendationsImg/Mc.png';
 import MrKebabImage from './RecommendationsImg/Mrkebab.png';
 import TwisterImage from './RecommendationsImg/Twister.png';
-
 import './MainContent.css';
 import { useNavigate } from 'react-router-dom';
 import { AppRoutes } from '../../../app/Router';
