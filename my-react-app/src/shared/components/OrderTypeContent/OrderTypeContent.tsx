@@ -1,7 +1,10 @@
 import React from 'react'
 import "./OrderTypeContent.css"
+import { useNavigate } from 'react-router-dom';
+import { AppRoutes } from '../../../app/Router';
 
 const OrderTypeContent: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <div className='order-content'>
       <div className='order-restaurant'>
@@ -9,10 +12,10 @@ const OrderTypeContent: React.FC = () => {
         <h2 className="restaurant-name">#Restaurant</h2>
       </div>
       <div className='order-type'>
-        <div className='type-take'>
+        <div onClick={() => navigate(AppRoutes.TAKEAWAY)} className='type-take'>
           <h3>La Pachet</h3>
         </div>
-        <div className='type-stay'>
+        <div onClick={() => navigate(AppRoutes.IN_RESTAURANT)} className='type-stay'>
           <h3>Pe Loc</h3>
         </div>
       </div>
