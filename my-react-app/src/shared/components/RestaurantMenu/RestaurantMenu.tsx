@@ -19,6 +19,8 @@ const RestaurantMenu = () => {
   const menuItems: MenuItemType[] = [
     { id: '1', name: 'Pepperoni', description: 'Pepperoni, cheese, and tomato sauce', price: 145, image: 'https://via.placeholder.com/150' },
     { id: '2', name: 'Margherita', description: 'Tomato, mozzarella, and basil', price: 135, image: 'https://via.placeholder.com/150' },
+    { id: '3', name: 'Pepperoni', description: 'Pepperoni, cheese, and tomato sauce', price: 145, image: 'https://via.placeholder.com/150' },
+    { id: '4', name: 'Margherita', description: 'Tomato, mozzarella, and basil', price: 135, image: 'https://via.placeholder.com/150' },
   ];
 
   const [currentPage, setCurrentPage] = useState(1);

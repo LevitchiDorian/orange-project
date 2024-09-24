@@ -1,11 +1,15 @@
 .navbar{
-    margin-left: 200px;
-    margin-right: 200px;
-    padding: 20px 0;
+    padding: 20px 200px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: #FFFFFF;
+    position: fixed;
+    width: 80%;
+    top: 0;
+    background-color: rgb(124, 29, 16);
+    z-index: 9999;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .navbar .logo{
