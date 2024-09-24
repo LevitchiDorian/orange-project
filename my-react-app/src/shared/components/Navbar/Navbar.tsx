@@ -1,7 +1,7 @@
 import './Navbar.css'
 import { ShoppingCartOutlined } from '@ant-design/icons'
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { AppRoutes } from '../../../app/Router'
 
 
@@ -14,7 +14,6 @@ const Navbar: React.FC = () => {
         <div onClick={() => navigate(AppRoutes.MAIN)}> ReadyToEat</div>
       </div>
       <div className='cart'>
-        <Link to={AppRoutes.CART}></Link>
         <div onClick={() => navigate(AppRoutes.CART)}><ShoppingCartOutlined /></div>
       </div>
     </div>

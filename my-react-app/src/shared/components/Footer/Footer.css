@@ -1,12 +1,12 @@
 .footer {
-    background: #181a1b; /* Fundal mai întunecat */
-    color: white;
-    text-align: center;
-    padding: 20px;
-    border-top: 1px solid #333;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6); /* Umbră mai pronunțată */
-    position: relative; /* Pentru a folosi poziționare relativă în animație */
-  }
+  background: #181a1b; /* Fundal mai întunecat */
+  color: white;
+  text-align: center;
+  padding: 20px;
+  border-top: 1px solid #333;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6); /* Umbră mai pronunțată */
+  position: relative;
+}
   
   .logo{
     font-size: 1.3em;
