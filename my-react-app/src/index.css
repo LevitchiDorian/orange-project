@@ -6,6 +6,11 @@
   font-family: 'Montserrat', sans-serif;
   
 }
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
 :root {
   margin: 0;
@@ -34,6 +39,8 @@ a{
   min-height: 100vh;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .background-blur {

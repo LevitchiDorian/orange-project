@@ -1,22 +1,22 @@
 import React from 'react';
-import './CategoryContent.css';
+import './CategoryPage.css';
 
-const CategoryContent: React.FC = () => {
+const CategoryPage: React.FC = () => {
   return (
     <div className='category-page'>
-      <h2 className='category-title'>Alege restaurantul</h2>
+      <h2 className='category-title'>Selected Category</h2>
       <div className='restaurant-list'>
-        <div className='category-card'>
-          <div className='restaurant-logo'></div>
-          <h3 className='restaurant-name'>Restaurant Name</h3>
+        <div className='restaurant-card'>
+          <div className='restaurant-image-placeholder'></div>
+          <h3 className='restaurant-name-placeholder'>Restaurant Name</h3>
         </div>
-        <div className='category-card'>
-          <div className='restaurant-logo'></div>
-          <h3 className='restaurant-name'>Restaurant Name</h3>
+        <div className='restaurant-card'>
+          <div className='restaurant-image-placeholder'></div>
+          <h3 className='restaurant-name-placeholder'>Restaurant Name</h3>
         </div>
       </div>
     </div>
   );
 };
 
-export default CategoryContent;
+export default CategoryPage;
