@@ -1,12 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IItemDTO } from '../../entities/ItemDTO';
 
-interface CartItem {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-  description: string;
-  image: string;
+interface CartItem extends IItemDTO {
+  quantity: number; 
 }
 
 interface CartState {
@@ -29,10 +25,10 @@ const cartSlice = createSlice({
         state.items.push(action.payload);
       }
     },
-    removeFromCart(state, action: PayloadAction<string>) {
+    removeFromCart(state, action: PayloadAction<number>) { 
       state.items = state.items.filter(item => item.id !== action.payload);
     },
-    updateQuantity(state, action: PayloadAction<{ id: string; quantity: number }>) {
+    updateQuantity(state, action: PayloadAction<{ id: number; quantity: number }>) {
       const item = state.items.find(item => item.id === action.payload.id);
       if (item) {
         item.quantity = action.payload.quantity;

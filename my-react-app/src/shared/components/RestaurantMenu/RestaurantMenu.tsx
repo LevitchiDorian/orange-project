@@ -1,45 +1,46 @@
-import { useState, useEffect } from 'react';
-import { useDispatch} from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import MenuItem from '../MenuItem/MenuItem';
 import Pagination from '../Pagination/Pagination';
 import styles from './RestaurantMenu.module.css';
 import { addToCart } from '../../../features/cart/cartSlice';
+import { useGetMenuByRestaurantIdQuery } from '../../../store/apiSlice';
+import { IItemDTO } from '../../../entities/ItemDTO';
 
-
-interface MenuItemType {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
+interface RestaurantMenuProps {
+  restaurantId: number;
 }
 
-
-const RestaurantMenu = () => {
-  const menuItems: MenuItemType[] = [
-    { id: '1', name: 'Pepperoni', description: 'Pepperoni, cheese, and tomato sauce', price: 145, image: 'https://via.placeholder.com/150' },
-    { id: '2', name: 'Margherita', description: 'Tomato, mozzarella, and basil', price: 135, image: 'https://via.placeholder.com/150' },
-    { id: '3', name: 'Pepperoni', description: 'Pepperoni, cheese, and tomato sauce', price: 145, image: 'https://via.placeholder.com/150' },
-    { id: '4', name: 'Margherita', description: 'Tomato, mozzarella, and basil', price: 135, image: 'https://via.placeholder.com/150' },
-  ];
+const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ restaurantId }) => {
+  const { data: menuData, isLoading, error } = useGetMenuByRestaurantIdQuery(restaurantId);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentItems, setCurrentItems] = useState<MenuItemType[]>([]);
-  
+  const [currentItems, setCurrentItems] = useState<IItemDTO[]>([]);
   const itemsPerPage = 6;
-  const totalPages = Math.ceil(menuItems.length / itemsPerPage);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    setCurrentItems(menuItems.slice(indexOfFirstItem, indexOfLastItem));
-  }, [currentPage]);
+    if (menuData && menuData.items) {
+      const indexOfLastItem = currentPage * itemsPerPage;
+      const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+      setCurrentItems(menuData.items.slice(indexOfFirstItem, indexOfLastItem));
+    }
+  }, [menuData, currentPage]);
 
-  const addToCartHandler = (menuItem: MenuItemType, quantity: number) => {
+  const addToCartHandler = (menuItem: IItemDTO, quantity: number) => {
+    // Console log to track which item is being added and the quantity
+    console.log(`Adding to cart: ${menuItem.dishName} (ID: ${menuItem.id}) - Quantity: ${quantity}`);
+
     dispatch(addToCart({ ...menuItem, quantity }));
   };
+
+  if (isLoading) {
+    return <p>Loading menu...</p>;
+  }
+
+  if (error) {
+    return <p>Error loading menu</p>;
+  }
 
   return (
     <div className={styles.container}>
@@ -55,7 +56,7 @@ const RestaurantMenu = () => {
 
       <Pagination
         currentPage={currentPage}
-        totalPages={totalPages}
+        totalPages={Math.ceil((menuData?.items?.length || 0) / itemsPerPage)}
         onPageChange={setCurrentPage}
         onPreviousPage={() => setCurrentPage(currentPage - 1)}
         onNextPage={() => setCurrentPage(currentPage + 1)}

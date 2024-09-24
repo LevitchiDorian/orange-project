@@ -1,10 +1,8 @@
 .card {
-  width: 100%; 
-  max-width: 400px;
-  display: grid;
-  grid-template-columns: 220px 180px;
-  grid-template-rows: 200px;
-  justify-content: center;
+  width: 100%;
+  max-width: 500px; 
+  display: flex;
+  justify-content: flex-start;
   align-items: center;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -12,19 +10,21 @@
   background-color: #fff;
   margin-bottom: 1rem;
   box-sizing: border-box;
+  padding: 10px; 
+  height: 200px; 
 }
 
 .imageContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+  flex-shrink: 0;
+  width: 170px; 
+  height: 170px; 
+  margin-right: 15px; 
 }
 
 .cardImg {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; 
   border-radius: 8px;
 }
 
@@ -32,23 +32,39 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 0.5rem;
   height: 100%;
+  width: 100%;
 }
 
 .cardTitle {
-  font-size: 1.2rem; 
+  font-size: 1.2rem;
   font-weight: bold;
   color: #333;
+  margin-bottom: 0.5rem;
 }
 
 .cardDescription {
-  font-size: 0.8rem; 
+  font-size: 0.9rem;
   color: #6c757d;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; 
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.2rem;
+  max-height: calc(1.2rem * 2);
+  margin-bottom: 0.5rem;
+}
+
+.priceContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .price {
-  font-size: 1.2rem; 
+  font-size: 1.2rem;
   font-weight: bold;
   color: #333;
 }
@@ -63,11 +79,19 @@
 .addButton {
   background-color: #b8b8b8;
   border: none;
-  padding: 0.3rem 0.5rem;
-  border-radius: 30px;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
   color: white;
   font-weight: bold;
-  font-size: 0.8rem;
-  flex-shrink: 0;
+  font-size: 0.9rem;
   margin-left: 1rem;
+}
+
+.quantitySelector {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #f0f0f0;
+  border-radius: 30px;
+  padding: 0.3rem 0.7rem;
 }

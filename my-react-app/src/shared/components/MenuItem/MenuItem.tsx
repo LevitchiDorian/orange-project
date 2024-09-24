@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
 import QuantitySelector from '../QuantitySelector/QuantitySelector';
 import styles from './MenuItem.module.css';
-
-interface MenuItemType {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-}
+import { IItemDTO } from '../../../entities/ItemDTO';
 
 interface MenuItemProps {
-  menuItem: MenuItemType;
-  onAddToCart: (menuItem: MenuItemType, quantity: number) => void;
+  menuItem: IItemDTO;
+  onAddToCart: (menuItem: IItemDTO, quantity: number) => void;
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({ menuItem, onAddToCart }) => {
@@ -26,15 +19,20 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, onAddToCart }) => {
     onAddToCart(menuItem, quantity);
   };
 
+
+  const imageSrc = menuItem.image && menuItem.image.length > 0 
+    ? menuItem.image[0] 
+    : 'https://via.placeholder.com/150'; 
+
   return (
     <div className={styles.card}>
       <div className={styles.imageContainer}>
-        <img src={menuItem.image} className={styles.cardImg} alt={menuItem.name} />
+        <img src={imageSrc} className={styles.cardImg} alt={menuItem.dishName || 'Menu item'} />
       </div>
 
       <div className={styles.contentContainer}>
-        <h3 className={styles.cardTitle}>{menuItem.name}</h3>
-        <p className={styles.cardDescription}>{menuItem.description}</p>
+        <h3 className={styles.cardTitle}>{menuItem.dishName || 'No name'}</h3>
+        <p className={styles.cardDescription}>{menuItem.description || 'No description available'}</p>
         <span className={styles.price}>{menuItem.price.toFixed(2)} MDL</span>
 
         <div className={styles.actionButtons}>
@@ -49,5 +47,3 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, onAddToCart }) => {
 };
 
 export default MenuItem;
-
-

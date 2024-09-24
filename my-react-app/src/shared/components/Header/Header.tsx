@@ -1,54 +1,63 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import traditionalImg from './categoryImages/traditional.jpg';
 import asiaticImg from './categoryImages/asiatic.png';
 import burgerImg from './categoryImages/burger.jpg';
 import kebabImg from './categoryImages/kebab.jpg';
 import pizzaImg from './categoryImages/pizza.jpg';
-import { useNavigate } from 'react-router-dom';  
+import { useNavigate } from 'react-router-dom';
 import { AppRoutes } from '../../../app/Router';
+import { useGetAllCategoriesQuery } from '../../../store/apiSlice';
 import './Header.css';
 
+const categoryImages: Record<string, string> = {
+  Traditional: traditionalImg,
+  Asian: asiaticImg,
+  Burger: burgerImg,
+  Kebab: kebabImg,
+  Pizza: pizzaImg,
+};
+
 const Header: React.FC = () => {
-  const navigate = useNavigate();  // Initialize the navigate hook
+  const navigate = useNavigate();
+  const { data: categories = [], isLoading, error } = useGetAllCategoriesQuery();
+  const [mappedCategories, setMappedCategories] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (!isLoading && !error) {
+      const mapped = categories.map((category: any) => {
+        const image = categoryImages[category.categoryName as keyof typeof categoryImages] || pizzaImg;
+        return { ...category, image };
+      });
+      setMappedCategories(mapped);
+    }
+  }, [categories, isLoading, error]);
+
+  if (isLoading) return <p>Loading categories...</p>;
+  if (error) return <p>Error loading categories</p>;
+
+  const handleCategoryClick = (categoryId: number) => {
+    navigate(AppRoutes.CATEGORY_PAGE, { state: { categoryId } });
+  };
 
   return (
     <header className="header">
       <h1>Descoperă Restaurantele din Chișinău</h1>
       <h3>Alege categoria dorită:</h3>
       <div className="categories">
-        <div className="category">
-          <button className="category-button" onClick={() => navigate(AppRoutes.CATEGORY_PAGE)}>
-            <img src={traditionalImg} alt="Tradițional" className="category-image" />
-          </button>
-          <span className="category-name">Tradițional</span>
-        </div>
-        <div className="category">
-          <button className="category-button" onClick={() => navigate(AppRoutes.CATEGORY_PAGE)}>
-            <img src={asiaticImg} alt="Asiatic" className="category-image" />
-          </button>
-          <span className="category-name">Asiatic</span>
-        </div>
-        <div className="category">
-          <button className="category-button" onClick={() => navigate(AppRoutes.CATEGORY_PAGE)}>
-            <img src={burgerImg} alt="Burger" className="category-image" />
-          </button>
-          <span className="category-name">Burger</span>
-        </div>
-        <div className="category">
-          <button className="category-button" onClick={() => navigate(AppRoutes.CATEGORY_PAGE)}>
-            <img src={kebabImg} alt="Kebab" className="category-image" />
-          </button>
-          <span className="category-name">Kebab</span>
-        </div>
-        <div className="category">
-          <button className="category-button" onClick={() => navigate(AppRoutes.CATEGORY_PAGE)}>
-            <img src={pizzaImg} alt="Pizza" className="category-image" />
-          </button>
-          <span className="category-name">Pizza</span>
-        </div>
+        {mappedCategories.map((category) => (
+          <div className="category" key={category.id}>
+            <button
+              className="category-button"
+              onClick={() => handleCategoryClick(category.id)} // Pass the categoryId on click
+            >
+              <img src={category.image} alt={category.categoryName} className="category-image" />
+            </button>
+            <span className="category-name">{category.categoryName}</span>
+          </div>
+        ))}
       </div>
     </header>
   );
-}
+};
 
 export default Header;

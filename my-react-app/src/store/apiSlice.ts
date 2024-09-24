@@ -6,7 +6,7 @@ import { ICategoryDTO } from '../entities/CategoryDTO';
 
 const apiSlice = createApi({
   reducerPath: 'restaurantApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8080' }), 
+  baseQuery: fetchBaseQuery({ baseUrl: '/api' }), 
   tagTypes: ['Restaurant', 'Menu', 'Location', 'Category'],
   endpoints: (builder) => ({
     getAllRestaurants: builder.query<IRestaurantDTO[], { categoryIds: number[]; restaurantName: string }>({
