@@ -1,49 +1,33 @@
 import { useState, useEffect } from 'react';
+import { useDispatch} from 'react-redux';
 import MenuItem from '../MenuItem/MenuItem';
-import Pagination from '../Pagination/Pagination'; 
+import Pagination from '../Pagination/Pagination';
 import styles from './RestaurantMenu.module.css';
+import { addToCart } from '../../../features/cart/cartSlice';
+
 
 interface MenuItemType {
-  id: number;
+  id: string;
   name: string;
   description: string;
-  price: string;
+  price: number;
   image: string;
 }
 
-interface CartItem extends MenuItemType {
-  quantity: number;
-}
 
 const RestaurantMenu = () => {
   const menuItems: MenuItemType[] = [
-    { id: 1, name: 'Pepperoni', description: 'Pepperoni, cheese, and tomato sauce', price: '145.00 MDL', image: 'https://via.placeholder.com/150' },
-    { id: 2, name: 'Margherita', description: 'Tomato, mozzarella, and basil', price: '135.00 MDL', image: 'https://via.placeholder.com/150' },
+    { id: '1', name: 'Pepperoni', description: 'Pepperoni, cheese, and tomato sauce', price: 145, image: 'https://via.placeholder.com/150' },
+    { id: '2', name: 'Margherita', description: 'Tomato, mozzarella, and basil', price: 135, image: 'https://via.placeholder.com/150' },
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
   const [currentItems, setCurrentItems] = useState<MenuItemType[]>([]);
-  const [cart, setCart] = useState<CartItem[]>([]); 
-  const [isCartLoaded, setIsCartLoaded] = useState(false); 
-
-  const itemsPerPage = 1;
+  
+  const itemsPerPage = 6;
   const totalPages = Math.ceil(menuItems.length / itemsPerPage);
 
-  useEffect(() => {
-    if (!isCartLoaded) { 
-      const storedCart = localStorage.getItem('cart');
-      if (storedCart) {
-        setCart(JSON.parse(storedCart));
-      }
-      setIsCartLoaded(true); 
-    }
-  }, [isCartLoaded]);
-
-  useEffect(() => {
-    if (isCartLoaded) {
-      localStorage.setItem('cart', JSON.stringify(cart));
-    }
-  }, [cart, isCartLoaded]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -51,19 +35,8 @@ const RestaurantMenu = () => {
     setCurrentItems(menuItems.slice(indexOfFirstItem, indexOfLastItem));
   }, [currentPage]);
 
-  const addToCart = (menuItem: MenuItemType, quantity: number) => {
-    setCart((prevCart) => {
-      const existingItem = prevCart.find((item) => item.id === menuItem.id);
-      let updatedCart;
-      if (existingItem) {
-        updatedCart = prevCart.map((item) =>
-          item.id === menuItem.id ? { ...item, quantity: item.quantity + quantity } : item
-        );
-      } else {
-        updatedCart = [...prevCart, { ...menuItem, quantity }];
-      }
-      return updatedCart;
-    });
+  const addToCartHandler = (menuItem: MenuItemType, quantity: number) => {
+    dispatch(addToCart({ ...menuItem, quantity }));
   };
 
   return (
@@ -73,7 +46,7 @@ const RestaurantMenu = () => {
           <MenuItem
             key={item.id}
             menuItem={item}
-            onAddToCart={addToCart}
+            onAddToCart={addToCartHandler}
           />
         ))}
       </div>

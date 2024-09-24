@@ -1,21 +1,20 @@
 import React from 'react';
-import QuantitySelector from '../QuantitySelector/QuantitySelector'; 
+import QuantitySelector from '../QuantitySelector/QuantitySelector';
 import styles from './CartItem.module.css';
 
 interface CartItemProps {
-  id: number;
+  id: string;
   name: string;
   description: string;
-  price: string;
+  price: number;
   quantity: number;
   image: string;
-  onQuantityChange: (id: number, quantity: number) => void;
+  onQuantityChange: (id: string, quantity: number) => void;
 }
 
 const CartItem: React.FC<CartItemProps> = ({ id, name, description, price, quantity, image, onQuantityChange }) => {
-
   const handleQuantityChange = (newQuantity: number) => {
-    onQuantityChange(id, newQuantity); 
+    onQuantityChange(id, newQuantity);
   };
 
   return (
@@ -23,11 +22,10 @@ const CartItem: React.FC<CartItemProps> = ({ id, name, description, price, quant
       <div className={styles.imageContainer}>
         <img src={image} alt={name} className={styles.cartImg} />
       </div>
-
       <div className={styles.contentContainer}>
         <h3 className={styles.cartTitle}>{name}</h3>
         <p className={styles.cartDescription}>{description}</p>
-        <span className={styles.price}>Price: {price}</span>
+        <span className={styles.price}>{price.toFixed(2)} MDL</span>
 
         <div className={styles.actionButtons}>
           <QuantitySelector

@@ -1,32 +1,44 @@
 .quantityWrapper {
   display: flex;
   align-items: center;
-  background-color: #9c9c9c; /* Grey background that wraps both buttons and input */
-  border-radius: 30px; /* Make the overall group rounded */
-  padding: 0.2rem; /* Adjust padding to make it more compact */
-  max-width: fit-content; /* Ensure the wrapper only takes up as much space as needed */
+  background-color: #9c9c9c;
+  border-radius: 12px;
+  padding: 0.2rem; 
+  max-width: fit-content; 
 }
 
 .quantityInput {
-  width: 35px; /* Adjust input box size */
+  width: 35px; 
   text-align: center;
   border: none;
-  background-color: transparent; /* Keep the input transparent */
+  background-color: transparent; 
   font-size: 1rem;
   font-weight: bold;
   color: white;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.quantityInput::-webkit-outer-spin-button,
+.quantityInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.quantityInput:focus {
+  outline: none;
 }
 
 .quantityBtn {
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  border-radius: 10px;
+  width: 25px;
+  height: 25px;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #c4c4c4;
   border: none;
-  font-size: 1rem; 
+  font-size: 1rem;
   font-weight: bold;
   color: black;
   cursor: pointer;

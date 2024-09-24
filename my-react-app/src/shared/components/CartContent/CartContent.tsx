@@ -1,49 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import CartItem from '../CartItem/CartItem'; 
-import './CartContent.css'; 
+import { useSelector, useDispatch } from 'react-redux';
+import CartItem from '../CartItem/CartItem';
+import './CartContent.css';
 import { useNavigate } from 'react-router-dom';
 import { AppRoutes } from '../../../app/Router';
-
-interface CartItemType {
-  id: number;
-  name: string;
-  description: string;
-  price: string;
-  quantity: number;
-  image: string;
-}
+import { RootState } from '../../../app/store';
+import { updateQuantity, removeFromCart } from '../../../features/cart/cartSlice';
 
 const CartContent: React.FC = () => {
   const navigate = useNavigate();
-  const [cart, setCart] = useState<CartItemType[]>([]);
-  const [isCartLoaded, setIsCartLoaded] = useState(false);
+  const dispatch = useDispatch();
+  
+  const cart = useSelector((state: RootState) => state.cart.items);
 
-  useEffect(() => {
-    if (!isCartLoaded) {
-      const storedCart = localStorage.getItem('cart');
-      if (storedCart) {
-        setCart(JSON.parse(storedCart));
-      }
-      setIsCartLoaded(true);
+  const totalPrice = cart.reduce((acc, item) => {
+    return acc + item.price * item.quantity;
+  }, 0);
+
+  const handleQuantityChange = (id: string, newQuantity: number) => {
+    if (newQuantity > 0) {
+      dispatch(updateQuantity({ id, quantity: newQuantity }));
+    } else {
+      dispatch(removeFromCart(id));
     }
-  }, [isCartLoaded]);
-
-  const handleQuantityChange = (id: number, newQuantity: number) => {
-    setCart((prevCart) => {
-      const updatedCart = prevCart
-        .map((item) =>
-          item.id === id ? { ...item, quantity: newQuantity } : item
-        )
-        .filter((item) => item.quantity > 0);
-
-      localStorage.setItem('cart', JSON.stringify(updatedCart));
-      return updatedCart;
-    });
   };
 
   const handleButtonClick = () => {
     if (cart.length > 0) {
-      navigate(AppRoutes.CART); 
+      navigate(AppRoutes.CART);
     } else {
       navigate(AppRoutes.MAIN);
     }
@@ -65,7 +48,7 @@ const CartContent: React.FC = () => {
               description={cartItem.description}
               price={cartItem.price}
               quantity={cartItem.quantity}
-              image={cartItem.image}
+              image={cartItem.image} 
               onQuantityChange={handleQuantityChange}
             />
           ))
@@ -73,6 +56,12 @@ const CartContent: React.FC = () => {
           <p>Coșul tău este gol.</p>
         )}
       </div>
+
+      {cart.length > 0 && (
+        <div className="cart-total">
+          <h3>Total: {totalPrice.toFixed(2)} MDL</h3>
+        </div>
+      )}
 
       <div className="cart-actions">
         <button onClick={handleButtonClick}>

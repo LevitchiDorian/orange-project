@@ -62,3 +62,11 @@
 .cart-actions button:hover {
     background-color: #c9302c;
 }
+
+
+.cart-total {
+    margin-top: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+}

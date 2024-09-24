@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import QuantitySelector from '../QuantitySelector/QuantitySelector'; 
+import QuantitySelector from '../QuantitySelector/QuantitySelector';
 import styles from './MenuItem.module.css';
 
 interface MenuItemType {
-  id: number;
+  id: string;
   name: string;
   description: string;
-  price: string;
+  price: number;
   image: string;
 }
 
@@ -35,7 +35,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, onAddToCart }) => {
       <div className={styles.contentContainer}>
         <h3 className={styles.cardTitle}>{menuItem.name}</h3>
         <p className={styles.cardDescription}>{menuItem.description}</p>
-        <span className={styles.price}>{menuItem.price}</span>
+        <span className={styles.price}>{menuItem.price.toFixed(2)} MDL</span>
 
         <div className={styles.actionButtons}>
           <QuantitySelector onQuantityChange={handleQuantityChange} initialQuantity={quantity} />
@@ -49,3 +49,5 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, onAddToCart }) => {
 };
 
 export default MenuItem;
+
+
