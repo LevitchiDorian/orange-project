@@ -1,0 +1,50 @@
+.form-container {
+    flex: 1;
+    margin-left: 200px;
+    margin-right: 200px;
+    border-radius: 80px 80px 0 0;
+    background-color: #fff;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(0, 0, 0, 0.23);
+    padding: 20px;
+    animation: fadeIn 1s ease-in-out;
+    color: #181a1b;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centers the form vertically */
+}
+
+.restaurant-details{
+    display: flex;
+    align-items: center;
+    gap: 40px; /* Increased space between the two cards */
+    padding: 30px 0 50px 0;
+}
+
+.r-logo{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    color: #181a1b;
+}
+
+.r-name{
+    font-size: 42px;
+}
+
+.form-content {
+    width: 100%;
+    max-width: 450px; /* Limits the form width */
+}
+
+.custom-label .ant-form-item-label > label {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.btn-form{
+    display: flex;
+    justify-content: center;
+    margin-top: 5em;
+}
+
