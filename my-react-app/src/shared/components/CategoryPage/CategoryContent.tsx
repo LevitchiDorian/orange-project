@@ -1,5 +1,5 @@
 import React from 'react';
-import './CategoryPage.css';
+import './Categorycontent.css';
 
 const CategoryPage: React.FC = () => {
   return (
