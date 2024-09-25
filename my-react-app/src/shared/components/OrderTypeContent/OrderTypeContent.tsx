@@ -2,29 +2,52 @@ import React from 'react';
 import './OrderTypeContent.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { AppRoutes } from '../../../app/Router';
+import { useGetAllRestaurantsQuery } from '../../../store/apiSlice';
 
 const OrderTypeContent: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Retrieve restaurantId from the location state
   const { restaurantId } = location.state;
 
+
+  const { data: restaurants, isLoading, error } = useGetAllRestaurantsQuery({
+    categoryIds: [],
+    restaurantName: '',
+  });
+
+
+  const restaurant = restaurants?.find((r) => r.id === restaurantId);
+
   const handleTakeawayClick = () => {
-    // Navigate to the TAKEAWAY page and pass restaurantId in the state
     navigate(AppRoutes.TAKEAWAY, { state: { restaurantId } });
   };
 
   const handleInRestaurantClick = () => {
-    // Navigate to the IN_RESTAURANT page and pass restaurantId in the state
     navigate(AppRoutes.IN_RESTAURANT, { state: { restaurantId } });
   };
+
+  if (isLoading) {
+    return <p>Loading restaurant details...</p>;
+  }
+
+  if (error || !restaurant) {
+    return <p>Error loading restaurant details</p>;
+  }
 
   return (
     <div className='order-content'>
       <div className='order-restaurant'>
-        <img src="restaurant-logo.png" alt="" className='restaurant-logo' />
-        <h2 className="restaurant-name">#Restaurant</h2> {/* Optionally update with restaurant name */}
+        {restaurant.logo && (
+          <img 
+            src={`data:image/png;base64,${restaurant.logo}`}  
+            alt="Restaurant Logo" 
+            className='restaurant-logo' 
+          />
+        )}
+        {restaurant.restaurantName && (
+          <h2 className="restaurant-name">{restaurant.restaurantName}</h2>
+        )}
       </div>
       <div className='order-type'>
         <div onClick={handleTakeawayClick} className='type-take'>

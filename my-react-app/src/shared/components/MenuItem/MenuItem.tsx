@@ -21,7 +21,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, onAddToCart }) => {
 
 
   const imageSrc = menuItem.image && menuItem.image.length > 0 
-    ? menuItem.image[0] 
+    ? `data:image/jpeg;base64,${menuItem.image}` 
     : 'https://via.placeholder.com/150'; 
 
   return (

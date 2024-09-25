@@ -35,8 +35,9 @@ const Header: React.FC = () => {
   if (isLoading) return <p>Loading categories...</p>;
   if (error) return <p>Error loading categories</p>;
 
-  const handleCategoryClick = (categoryId: number) => {
-    navigate(AppRoutes.CATEGORY_PAGE, { state: { categoryId } });
+  const handleCategoryClick = (categoryId: number, categoryName: string) => {
+    // Navigate to category page and pass both categoryId and categoryName in the state
+    navigate(AppRoutes.CATEGORY_PAGE, { state: { categoryId, categoryName } });
   };
 
   return (
@@ -48,7 +49,7 @@ const Header: React.FC = () => {
           <div className="category" key={category.id}>
             <button
               className="category-button"
-              onClick={() => handleCategoryClick(category.id)} // Pass the categoryId on click
+              onClick={() => handleCategoryClick(category.id, category.categoryName)} // Pass categoryId and categoryName on click
             >
               <img src={category.image} alt={category.categoryName} className="category-image" />
             </button>

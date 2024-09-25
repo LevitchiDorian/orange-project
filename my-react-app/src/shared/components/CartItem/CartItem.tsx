@@ -8,7 +8,7 @@ interface CartItemProps {
   description: string;
   price: number;
   quantity: number;
-  image: string[] | null; // Allow image to be null
+  image: string[] | null; 
   onQuantityChange: (id: number, quantity: number) => void;
 }
 
@@ -17,13 +17,22 @@ const CartItem: React.FC<CartItemProps> = ({ id, dishName, description, price, q
     onQuantityChange(id, newQuantity);
   };
 
-  // Ensure image is always an array, fallback to an empty array if it's null or undefined
-  const imageSrc = (image && image.length > 0) ? image[0] : 'https://via.placeholder.com/150';
+  // Log the image array to verify the base64 string is received
+  console.log('CartItem image:', image);
+
+
+  const imageSrc = image && image.length > 0 
+    ? `data:image/jpeg;base64,${image}` 
+    : 'https://via.placeholder.com/150'; 
 
   return (
     <div className={styles.cartItem}>
       <div className={styles.imageContainer}>
-        <img src={imageSrc} alt={dishName} className={styles.cartImg} />
+        <img 
+          src={imageSrc} 
+          alt={dishName} 
+          className={styles.cartImg} 
+        />
       </div>
       <div className={styles.contentContainer}>
         <h3 className={styles.cartTitle}>{dishName}</h3>

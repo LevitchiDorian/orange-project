@@ -1,33 +1,31 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useGetAllRestaurantsQuery } from '../../../store/apiSlice'; 
-import { IRestaurantDTO } from '../../../entities/RestaurantDTO'; // Import the correct type
+import { useGetAllRestaurantsQuery } from '../../../store/apiSlice'; // This comes from your apiSlice
 import './Categorycontent.css';
 
 const CategoryPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { categoryId } = location.state as { categoryId: number };
+  const { categoryId, categoryName } = location.state as { categoryId: number, categoryName: string };
 
-  // Fetch restaurants from API
+  // Use RTK Query to get the list of restaurants based on categoryId
   const { data: restaurants = [], isLoading, error } = useGetAllRestaurantsQuery({
     categoryIds: [categoryId],
-    restaurantName: '',
+    restaurantName: '', // or pass a name if needed
   });
 
   if (isLoading) return <p>Loading restaurants...</p>;
   if (error) return <p>Error loading restaurants</p>;
 
-  // Navigate to order-type page with the restaurantId
   const handleRestaurantClick = (restaurantId: number) => {
     navigate('/order-type', { state: { restaurantId } });
   };
 
   return (
     <div className="category-page">
-      <h2 className="category-title">Selected Category</h2>
+      <h2 className="category-title">{categoryName}</h2>
       <div className="restaurant-list">
-        {restaurants?.map((restaurant: IRestaurantDTO) => (
+        {restaurants?.map((restaurant) => (
           <div 
             key={restaurant.id} 
             className="restaurant-card"
@@ -35,7 +33,10 @@ const CategoryPage: React.FC = () => {
           >
             <div className="restaurant-image-placeholder">
               {restaurant.logo && restaurant.logo.length > 0 ? (
-                <img src={restaurant.logo[0]} alt={restaurant.restaurantName} />
+                <img 
+                src={`data:image/png;base64,${restaurant.logo}`} 
+                  alt={restaurant.restaurantName} 
+                />
               ) : (
                 <div>No Image Available</div>
               )}

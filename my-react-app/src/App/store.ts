@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import apiSlice from '../store/apiSlice';
 import cartReducer from '../features/cart/cartSlice'
 
+
 export const store = configureStore({
   reducer: {
     
