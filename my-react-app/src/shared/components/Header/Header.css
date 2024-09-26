@@ -57,6 +57,11 @@
   filter: brightness(0.9) contrast(1.2) saturate(1.2); /* Ajustează imaginea pentru a fi mai vibrantă */
 }
 
+.category.active .category-button {
+  transform: scale(1.1); /* Slightly larger */
+  box-shadow: 0px 0px 15px 10px rgba(255, 100, 100, 0.7); /* Highlight with a bright shadow */
+}
+
 .category-button:hover {
   transform: scale(1.1); /* Crește dimensiunea butonului */
   box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.7); /* Efect de luminare */

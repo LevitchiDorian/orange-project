@@ -76,14 +76,30 @@ const FormIR: React.FC = () => {
           </Form.Item>
 
           <Form.Item
+            name="email"
+            label="E-Mail"
+            rules={[{ type: 'email', required: true, message: 'Va rog introduce-ti un E-mail!' }]}
+          >
+            <Input placeholder="Introduce E-mail"/>
+          </Form.Item>
+
+          <Form.Item
             label="Filiala"
             name="location"
             rules={[{ required: true, message: 'Va rog selectati o filiala' }]}
           >
             <Select placeholder="Selectati filiala">
               <Select.Option value="location1">Filiala 1</Select.Option>
-              <Select.Option value="location2">Filiala 1</Select.Option>
-              <Select.Option value="location3">Filiala 1</Select.Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item
+            label="Mese disponibile"
+            name="tables"
+            rules={[{ required: true, message: 'Va rog selectati o masa!' }]}
+          >
+            <Select placeholder="Selectati masa disponibila">
+              <Select.Option value="table">Masa 1</Select.Option>
             </Select>
           </Form.Item>
 
