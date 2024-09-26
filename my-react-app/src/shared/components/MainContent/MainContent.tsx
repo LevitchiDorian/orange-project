@@ -43,7 +43,7 @@ const MainContent: React.FC = () => {
   return (
     <main className="main-content">
       <section className="recommendations">
-        <h2>Recomandăm</h2>
+        <h2 className='recommendations-title'>Recomandăm</h2>
         <div className="restaurant-slider">
           <button className="slider-arrow left" onClick={handleNext}>
             <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="white" strokeWidth="2">
