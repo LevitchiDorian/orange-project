@@ -47,7 +47,7 @@ const CartContent: React.FC = () => {
         console.error('Order type not set!');
       }
     } else {
-      navigate(AppRoutes.MAIN); // If the cart is empty, redirect to the main page
+      navigate(AppRoutes.MAIN);
     }
   };
 
