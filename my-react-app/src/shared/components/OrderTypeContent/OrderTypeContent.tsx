@@ -46,7 +46,7 @@ const OrderTypeContent: React.FC = () => {
           />
         )}
         {restaurant.restaurantName && (
-          <h2 className="restaurant-name">{restaurant.restaurantName}</h2>
+          <h2 className="restaurant-title">{restaurant.restaurantName}</h2>
         )}
       </div>
       <div className='order-type'>

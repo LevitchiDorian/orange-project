@@ -36,12 +36,12 @@ const CategoryPage: React.FC = () => {
                 <img 
                 src={`data:image/png;base64,${restaurant.logo}`} 
                   alt={restaurant.restaurantName} 
+                  className="restaurant-image"
                 />
               ) : (
                 <div>No Image Available</div>
               )}
             </div>
-            <h3 className="restaurant-name-placeholder">{restaurant.restaurantName}</h3>
           </div>
         ))}
       </div>

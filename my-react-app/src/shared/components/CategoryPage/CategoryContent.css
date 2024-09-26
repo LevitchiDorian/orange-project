@@ -15,6 +15,13 @@
     justify-content: space-between;
 }
 
+.category-title{
+    font-size: 28px;
+    font-weight: 800;
+    color: #181a1b;
+    padding: 20px;
+}
+
 .restaurant-list {
     display: flex;
     gap: 40px;
@@ -25,7 +32,7 @@
 
 .category-card {
     flex: 1;
-    background-color: #f1f1f1;
+    background-color: #ffffff;
     border-radius: 20px;
     padding: 30px;
     text-align: center;
@@ -38,16 +45,12 @@
     height: 300px;
 }
 
-.restaurant-logo {
-    width: 80px;
-    height: 80px;
-    background-color: gray;
-    border-radius: 50%;
-    margin-bottom: 20px;
+/* Hover effects on card */
+.restaurant-card:hover {
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05); /* Slightly enlarge on hover */
 }
-
-.restaurant-name {
-    font-size: 24px;
-    font-weight: 800;
-    text-align: center;
+  
+  .restaurant-card:hover .restaurant-image {
+    transform: scale(1.1); /* Slight zoom on image */
 }

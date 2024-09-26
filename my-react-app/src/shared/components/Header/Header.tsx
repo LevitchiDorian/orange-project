@@ -21,6 +21,7 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
   const { data: categories = [], isLoading, error } = useGetAllCategoriesQuery();
   const [mappedCategories, setMappedCategories] = useState<any[]>([]);
+  const [activeCategoryId, setActiveCategoryId] = useState<number | null>(null);
 
   useEffect(() => {
     if (!isLoading && !error) {
@@ -36,8 +37,9 @@ const Header: React.FC = () => {
   if (error) return <p>Error loading categories</p>;
 
   const handleCategoryClick = (categoryId: number, categoryName: string) => {
+    setActiveCategoryId(categoryId); // Set the clicked category as active
     // Navigate to category page and pass both categoryId and categoryName in the state
-    navigate(AppRoutes.CATEGORY_PAGE, { state: { categoryId, categoryName } });
+    navigate(AppRoutes.CATEGORY_PAGE, { state: { categoryId, categoryName, activeCategoryId: categoryId } });
   };
 
   return (
@@ -46,7 +48,8 @@ const Header: React.FC = () => {
       <h3>Alege categoria dorită:</h3>
       <div className="categories">
         {mappedCategories.map((category) => (
-          <div className="category" key={category.id}>
+          <div className={`category ${activeCategoryId === category.id ? 'active' : ''}`} 
+            key={category.id}>
             <button
               className="category-button"
               onClick={() => handleCategoryClick(category.id, category.categoryName)} // Pass categoryId and categoryName on click
