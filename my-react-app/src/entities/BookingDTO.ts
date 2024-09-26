@@ -12,7 +12,7 @@ export interface IBookingDTO {
   noPeople?: number;            
   preferences?: string;       
   locationId: number;          
-  tableId?: number;             
+  tableId?: number | null;             
   itemIds: number[];            
   status: BookingStatus;        
 }

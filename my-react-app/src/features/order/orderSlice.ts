@@ -48,6 +48,7 @@ const orderSlice = createSlice({
       }
     },
     clearOrder(state) {
+      state.orderType = null;
       state.items = [];
       state.bookingDetails = null;
       state.currentRestaurantId = null;

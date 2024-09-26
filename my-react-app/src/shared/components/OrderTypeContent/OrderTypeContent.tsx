@@ -3,9 +3,10 @@ import './OrderTypeContent.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { AppRoutes } from '../../../app/Router';
 import { useGetAllRestaurantsQuery } from '../../../store/apiSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentRestaurant, setOrderType } from '../../../features/order/orderSlice';
 import { orderType } from '../../../entities/enum/orderType';
+import { RootState } from '../../../app/store';
 
 const OrderTypeContent: React.FC = () => {
   const navigate = useNavigate();
@@ -22,16 +23,22 @@ const OrderTypeContent: React.FC = () => {
 
 
   const restaurant = restaurants?.find((r) => r.id === restaurantId);
+  const orderState = useSelector((state: RootState) => state.order);
 
   const handleTakeawayClick = () => {
-    dispatch(setOrderType(orderType.TAKEAWAY));
-    dispatch(setCurrentRestaurant(restaurantId));
+    if(!orderState.bookingDetails){
+      dispatch(setOrderType(orderType.TAKEAWAY));
+      dispatch(setCurrentRestaurant(restaurantId));
+    }
+    
     navigate(AppRoutes.TAKEAWAY, { state: { restaurantId } });
   };
 
   const handleInRestaurantClick = () => {
-    dispatch(setOrderType(orderType.IN_RESTAURANT));
-    dispatch(setCurrentRestaurant(restaurantId));
+    if(!orderState.bookingDetails){
+      dispatch(setOrderType(orderType.IN_RESTAURANT));
+      dispatch(setCurrentRestaurant(restaurantId));
+    }
     navigate(AppRoutes.FORM_IN_RESTAURANT, { state: { restaurantId } });
   };
 

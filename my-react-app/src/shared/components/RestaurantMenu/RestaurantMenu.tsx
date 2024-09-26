@@ -19,17 +19,19 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ restaurantId }) => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [currentItems, setCurrentItems] = useState<IItemDTO[]>([]);
-  const [showNotification, setShowNotification] = useState(false); 
+  const [showNotification, setShowNotification] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
 
-  const [confirmationMessage, setConfirmationMessage] = useState(''); 
+  const [confirmationMessage, setConfirmationMessage] = useState('');
   const [notificationMessage, setNotificationMessage] = useState('');
 
   const itemsPerPage = 6;
   const dispatch = useDispatch();
 
-  // Access current restaurant in cart
+  // Access current restaurant in cart and order state
   const currentRestaurantId = useSelector((state: RootState) => state.cart.currentRestaurantId);
+  const bookingDetails = useSelector((state: RootState) => state.order.bookingDetails);
+  const orderRestaurantId = useSelector((state: RootState) => state.order.currentRestaurantId);
 
   useEffect(() => {
     if (menuData && menuData.items) {
@@ -40,20 +42,31 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ restaurantId }) => {
   }, [menuData, currentPage]);
 
   const addToCartHandler = (menuItem: IItemDTO, quantity: number) => {
-    if (currentRestaurantId === null || currentRestaurantId === restaurantId) {
-      // If cart is empty or the restaurant matches, add to cart
-      dispatch(addToCart({ item: { ...menuItem, quantity, restaurantId }, restaurantId }));
-      setConfirmationMessage('Your item was added');
-      setShowConfirmation(true);
-    } else {
-      // Show notification if adding items from a different restaurant
-      setNotificationMessage('You can only add items from one restaurant at a time. Please clear your cart first.');
-      setShowNotification(true);
+    console.log(bookingDetails);
+    if (!bookingDetails) {
+      // Takeaway case: Only one restaurant can be added
+      if (currentRestaurantId === null || currentRestaurantId === restaurantId) {
+        dispatch(addToCart({ item: { ...menuItem, quantity, restaurantId }, restaurantId }));
+        setConfirmationMessage('Your item was added.');
+        setShowConfirmation(true);
+      } else {
+        setNotificationMessage('You can only add items from one restaurant at a time. Please clear your cart first.');
+        setShowNotification(true);
 
-      // Auto-hide the notification after 3 seconds
-      setTimeout(() => {
-        setShowNotification(false);
-      }, 3000);
+        setTimeout(() => setShowNotification(false), 3000);
+      }
+    } else if (bookingDetails) {
+      // In-Restaurant case: Only items from the restaurant with `currentRestaurantId` can be added
+      if (orderRestaurantId === restaurantId) {
+        dispatch(addToCart({ item: { ...menuItem, quantity, restaurantId }, restaurantId }));
+        setConfirmationMessage('Your item was added.');
+        setShowConfirmation(true);
+      } else {
+        setNotificationMessage('You can only order from the restaurant you are currently at.');
+        setShowNotification(true);
+
+        setTimeout(() => setShowNotification(false), 3000);
+      }
     }
   };
 
@@ -110,7 +123,6 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ restaurantId }) => {
 
       <NotificationModal show={showNotification} onClose={closeNotification} message={notificationMessage} />
       <NotificationModal show={showConfirmation} onClose={closeNotification} message={confirmationMessage} />
-
     </div>
   );
 };
