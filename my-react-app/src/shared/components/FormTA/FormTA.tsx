@@ -3,10 +3,13 @@ import styled from 'styled-components';
 import { Form, Input, Select } from "antd";
 import './FormTA.css';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { useGetAllRestaurantsQuery, useGetLocationsByRestaurantIdQuery } from '../../../store/apiSlice';
-import { useDispatch } from 'react-redux';
 import { setBookingDetails } from '../../../features/order/orderSlice';
+import { RootState } from '../../../app/store';
 import { AppRoutes } from '../../../app/Router';
+import { IBookingDTO, BookingStatus } from '../../../entities/BookingDTO';
+import { useBooking } from '../../../hooks/useBooking'; // Import your custom hook
 
 interface FormValues {
   name: string;
@@ -27,20 +30,20 @@ const prefixSelector = (
 );
 
 const CustomButton = styled.button`
-  background-color: #FFEFDD; /* Default background color */
-  color: #181a1b; /* Default text color */
-  border: 2px solid #FFEFDD; /* Match border with background */
+  background-color: #FFEFDD;
+  color: #181a1b;
+  border: 2px solid #FFEFDD;
   padding: 10px 20px;
   font-size: 16px;
   font-weight: 400;
   border-radius: 25px;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s; /* Smooth hover effect */
+  transition: background-color 0.3s, color 0.3s;
 
   &:hover {
-    background-color: #f9cc98; /* Hover background color */
-    color: #181a1b; /* Hover text color */
-    border-color: #f9cc98; /* Match border with hover background */
+    background-color: #f9cc98;
+    color: #181a1b;
+    border-color: #f9cc98;
   }
 `;
 
@@ -52,22 +55,27 @@ const FormTA: React.FC = () => {
   const { restaurantId } = location.state || {};
   const [selectedLocationId, setSelectedLocationId] = useState<number | null>(null);
 
+  const { submitBooking } = useBooking(); // Use custom hook
+
   // Fetch all restaurants and locations data
   const { data: restaurantData, isLoading: isRestaurantLoading } = useGetAllRestaurantsQuery({
     categoryIds: [],
     restaurantName: '',
   });
+  const restaurant = restaurantData?.find((r) => r.id === restaurantId);
   const { data: locationsData, isLoading: isLocationsLoading } = useGetLocationsByRestaurantIdQuery(restaurantId);
 
-  // Find restaurant by ID
-  const restaurant = restaurantData?.find((r) => r.id === restaurantId);
+  // Get items from the cart in the Redux store
+  const cartItems = useSelector((state: RootState) => state.cart.items);
 
-  // Handle form submission
+  // Extract only item IDs from the cart
+  const itemIds = cartItems.map((item) => item.id);
+
   const onFinish = (values: FormValues) => {
     const bookingDetails = {
       name: values.name,
       phoneNumber: values.phone,
-      email: values.email,
+      email: values.email,  // email for internal use
       locationId: selectedLocationId as number,
       tableId: null,
       noPeople: 0,
@@ -77,7 +85,23 @@ const FormTA: React.FC = () => {
     // Dispatch the booking details to the order slice
     dispatch(setBookingDetails(bookingDetails));
 
-    console.log('Booking details:', bookingDetails);
+    // Create the booking object using bookingDetails and itemIds from cart
+    const booking: IBookingDTO = {
+      name: bookingDetails.name,
+      phoneNumber: bookingDetails.phoneNumber,
+      mail: bookingDetails.email,  // Map email to mail in IBookingDTO
+      noPeople: bookingDetails.noPeople,
+      preferences: bookingDetails.preferences,
+      locationId: bookingDetails.locationId,
+      tableId: bookingDetails.tableId, // Ensure this is updated with a valid table ID
+      itemIds: itemIds, // Use item IDs from the cart
+      status: BookingStatus.IN_PROGRESS, // Set default status
+    };
+
+    // Pass the booking object to the submitBooking function
+    submitBooking(booking);
+
+    // Navigate to the main page after submitting
     navigate(AppRoutes.MAIN);
   };
 

@@ -17,8 +17,6 @@ const CartItem: React.FC<CartItemProps> = ({ id, dishName, description, price, q
     onQuantityChange(id, newQuantity);
   };
 
-  // Log the image array to verify the base64 string is received
-  console.log('CartItem image:', image);
 
 
   const imageSrc = image && image.length > 0 
