@@ -5,7 +5,7 @@ import Pagination from '../Pagination/Pagination';
 import NotificationModal from '../CartNotificationModal/NotificationModal';
 import styles from './RestaurantMenu.module.css';
 import { addToCart } from '../../../features/cart/cartSlice';
-import { useGetMenuByRestaurantIdQuery } from '../../../store/apiSlice';
+import { useGetAllRestaurantsQuery, useGetMenuByRestaurantIdQuery } from '../../../store/apiSlice';
 import { IItemDTO } from '../../../entities/ItemDTO';
 import { RootState } from '../../../app/store';
 
@@ -15,6 +15,7 @@ interface RestaurantMenuProps {
 
 const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ restaurantId }) => {
   const { data: menuData, isLoading, error } = useGetMenuByRestaurantIdQuery(restaurantId);
+  const { data: allRestaurants, isLoading: loadingRestaurant, error: restaurantError } = useGetAllRestaurantsQuery({ categoryIds: [], restaurantName: '' });
 
   const [currentPage, setCurrentPage] = useState(1);
   const [currentItems, setCurrentItems] = useState<IItemDTO[]>([]);
@@ -61,16 +62,34 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ restaurantId }) => {
     setShowConfirmation(false);
   };
 
-  if (isLoading) {
+  const restaurant = allRestaurants?.find((rest) => rest.id === restaurantId);
+
+  if (isLoading || loadingRestaurant) {
     return <p>Loading menu...</p>;
   }
 
-  if (error) {
+  if (error || restaurantError) {
     return <p>Error loading menu</p>;
   }
 
   return (
     <div className={styles.container}>
+      <div className='order-restaurant'>
+      {restaurant && (
+        <div className='order-restaurant'>
+          {restaurant.logo && (
+            <img 
+              src={`data:image/png;base64,${restaurant.logo}`}  
+              alt="Restaurant Logo" 
+              className='restaurant-logo' 
+            />
+          )}
+          {restaurant.restaurantName && (
+            <h2 className="restaurant-title">{restaurant.restaurantName}</h2>
+          )}
+        </div>
+      )}
+      </div>
       <div className={styles.grid}>
         {currentItems.map((item) => (
           <MenuItem

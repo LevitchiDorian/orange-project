@@ -15,7 +15,6 @@ const OrderTypeContent: React.FC = () => {
   const { restaurantId } = location.state;
 
 
-
   const { data: restaurants, isLoading, error } = useGetAllRestaurantsQuery({
     categoryIds: [],
     restaurantName: '',
