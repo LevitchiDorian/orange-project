@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Form, Input, InputNumber, Select, message } from 'antd';
-import { useGetAllRestaurantsQuery,
-         useGetLocationsByRestaurantIdQuery,
-         useGetTablesByLocationIdQuery } from '../../../store/apiSlice';
-import { useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux'; // Import useDispatch from react-redux
+import { useGetAllRestaurantsQuery, useGetLocationsByRestaurantIdQuery, useGetTablesByLocationIdQuery } from '../../../store/apiSlice';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { AppRoutes } from '../../../app/Router';
+import { setBookingDetails } from '../../../features/order/orderSlice'; // Import the setBookingDetails action
 
 interface FormValues {
   name: string;
   phone: string;
+  email: string;
   location: string;
+  table: number;
+  persons: number;
+  preferences?: string;
 }
 
 const { Option } = Select;
@@ -47,7 +52,9 @@ const CustomButton = styled.button`
 
 const FormIR: React.FC = () => {
   const [form] = Form.useForm();
+  const dispatch = useDispatch(); // Initialize useDispatch
   const location = useLocation();
+  const navigate = useNavigate();
   const { restaurantId } = location.state || {};
   const [selectedLocationId, setSelectedLocationId] = useState<number | null>(null);
   const [hasAvailableTable, setHasAvailableTable] = useState<boolean | null>(null);
@@ -70,7 +77,21 @@ const FormIR: React.FC = () => {
 
   // Handle form submission
   const onFinish = (values: FormValues) => {
-    console.log('Form values:', values);
+    const bookingDetails = {
+      name: values.name,
+      phoneNumber:values.phone,
+      email: values.email,
+      locationId: selectedLocationId as number,
+      tableId: values.table,
+      noPeople: values.persons,
+      preferences: values.preferences,
+    };
+
+    // Dispatch the booking details to the order slice
+    dispatch(setBookingDetails(bookingDetails));
+
+    console.log('Booking details:', bookingDetails);
+    message.success('Booking submitted successfully!');
   };
 
   // Handle location change
@@ -90,6 +111,11 @@ const FormIR: React.FC = () => {
       }
     }
   }, [availableTables]);
+
+  // Redirect to restaurant's menu page
+  const goToMenuPage = () => {
+    navigate(AppRoutes.IN_RESTAURANT, { state: { restaurantId } });
+  };
 
   if (isRestaurantLoading || isLocationsLoading) {
     return <p>Loading...</p>;
@@ -137,7 +163,7 @@ const FormIR: React.FC = () => {
             label="E-Mail"
             rules={[{ type: 'email', required: true, message: 'Va rog introduce-ti un E-mail!' }]}
           >
-            <Input placeholder="Introduce E-mail"/>
+            <Input placeholder="Introduce E-mail" />
           </Form.Item>
 
           <Form.Item
@@ -180,11 +206,14 @@ const FormIR: React.FC = () => {
             <Input.TextArea />
           </Form.Item>
 
-          <Form.Item className="btn-form">
-            <CustomButton disabled={hasAvailableTable === false || isFetching}>
-              Continua
+          <div className="btn-form">
+            <CustomButton disabled={hasAvailableTable === false || isFetching} type="submit">
+              Rezervă masa
             </CustomButton>
-          </Form.Item>
+            <CustomButton onClick={goToMenuPage}>
+              Vezi meniul restaurantului
+            </CustomButton>
+          </div>
         </Form>
       </div>
     </div>

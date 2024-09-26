@@ -18,11 +18,11 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ restaurantId }) => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [currentItems, setCurrentItems] = useState<IItemDTO[]>([]);
-  const [showNotification, setShowNotification] = useState(false); // State to control notification visibility
-  const [showConfirmation, setShowConfirmation] = useState(false); // State to control confirmation visibility
+  const [showNotification, setShowNotification] = useState(false); 
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
-  const [confirmationMessage, setConfirmationMessage] = useState(''); // State to hold confirmation message
-  const [notificationMessage, setNotificationMessage] = useState(''); // State to hold notification message
+  const [confirmationMessage, setConfirmationMessage] = useState(''); 
+  const [notificationMessage, setNotificationMessage] = useState('');
 
   const itemsPerPage = 6;
   const dispatch = useDispatch();
