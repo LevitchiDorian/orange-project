@@ -3,12 +3,17 @@ import './OrderTypeContent.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { AppRoutes } from '../../../app/Router';
 import { useGetAllRestaurantsQuery } from '../../../store/apiSlice';
+import { useDispatch } from 'react-redux';
+import { setCurrentRestaurant, setOrderType } from '../../../features/order/orderSlice';
+import { orderType } from '../../../entities/enum/orderType';
 
 const OrderTypeContent: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const location = useLocation();
 
   const { restaurantId } = location.state;
+
 
 
   const { data: restaurants, isLoading, error } = useGetAllRestaurantsQuery({
@@ -20,11 +25,15 @@ const OrderTypeContent: React.FC = () => {
   const restaurant = restaurants?.find((r) => r.id === restaurantId);
 
   const handleTakeawayClick = () => {
+    dispatch(setOrderType(orderType.TAKEAWAY));
+    dispatch(setCurrentRestaurant(restaurantId));
     navigate(AppRoutes.TAKEAWAY, { state: { restaurantId } });
   };
 
   const handleInRestaurantClick = () => {
-    navigate(AppRoutes.IN_RESTAURANT, { state: { restaurantId } });
+    dispatch(setOrderType(orderType.IN_RESTAURANT));
+    dispatch(setCurrentRestaurant(restaurantId));
+    navigate(AppRoutes.FORM_IN_RESTAURANT, { state: { restaurantId } });
   };
 
   if (isLoading) {

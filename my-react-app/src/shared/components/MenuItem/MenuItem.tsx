@@ -19,7 +19,6 @@ const MenuItem: React.FC<MenuItemProps> = ({ menuItem, onAddToCart }) => {
     onAddToCart(menuItem, quantity);
   };
 
-
   const imageSrc = menuItem.image && menuItem.image.length > 0 
     ? `data:image/jpeg;base64,${menuItem.image}` 
     : 'https://via.placeholder.com/150'; 
