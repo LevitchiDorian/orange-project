@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Form, Input, InputNumber, Select} from 'antd';
+import { DatePicker, Form, Input, InputNumber, Select, TimePicker, Alert } from 'antd';
 import { useDispatch } from 'react-redux';
-import { useGetAllRestaurantsQuery, useGetLocationsByRestaurantIdQuery, useGetTablesByLocationIdQuery } from '../../../store/apiSlice';
+import { useGetAllRestaurantsQuery, useGetLocationsByRestaurantIdQuery, useGetTablesByLocationIdQuery, useCheckFreeTableByLocationIdQuery } from '../../../store/apiSlice'; // Import useCheckFreeTableByLocationIdQuery
 import { useNavigate, useLocation } from 'react-router-dom';
 import { AppRoutes } from '../../../app/Router';
 import { setBookingDetails } from '../../../features/order/orderSlice';
@@ -17,6 +17,8 @@ interface FormValues {
   table: number;
   persons: number;
   preferences?: string;
+  date: string;
+  time: string;
 }
 
 const { Option } = Select;
@@ -60,7 +62,7 @@ const FormIR: React.FC = () => {
   const { restaurantId } = location.state || {};
   const [selectedLocationId, setSelectedLocationId] = useState<number | null>(null);
   const [hasAvailableTable, setHasAvailableTable] = useState<boolean | null>(null);
-  const { submitBooking } = useBooking();  // Use custom hook
+  const { submitBooking } = useBooking(); // Use custom hook
 
   const { data: restaurantData, isLoading: isRestaurantLoading } = useGetAllRestaurantsQuery({
     categoryIds: [],
@@ -72,6 +74,18 @@ const FormIR: React.FC = () => {
     { skip: !selectedLocationId }
   );
 
+  // Use the checkFreeTableByLocationIdQuery to check table availability
+  const { data: freeTableAvailable, isFetching: isCheckingTableAvailability } = useCheckFreeTableByLocationIdQuery(
+    selectedLocationId as number,
+    { skip: !selectedLocationId }
+  );
+
+  useEffect(() => {
+    if (freeTableAvailable !== undefined) {
+      setHasAvailableTable(freeTableAvailable);
+    }
+  }, [freeTableAvailable]);
+
   const restaurant = restaurantData?.find((r) => r.id === restaurantId);
 
   // Handle location change
@@ -82,27 +96,27 @@ const FormIR: React.FC = () => {
 
   // Handle form submission for booking
   const handleSubmit = (values: FormValues) => {
+    // Check if date and time are moment objects before calling format
+    const bookingDate = values.date && values.time 
+      ? `${(values.date as any)?.format('YYYY-MM-DD')} ${(values.time as any)?.format('HH:mm')}`
+      : '';
+
     const bookingDetails = {
       name: values.name,
       phoneNumber: values.phone,
-      email: values.email,
+      mail: values.email,
       locationId: selectedLocationId as number,
       tableId: values.table,
       noPeople: values.persons,
       preferences: values.preferences,
+      bookingDate,  // Add booking date to bookingDetails
     };
 
     dispatch(setBookingDetails(bookingDetails));
 
     const booking: IBookingDTO = {
-      name: bookingDetails.name,
-      phoneNumber: bookingDetails.phoneNumber,
-      mail: bookingDetails.email,
-      locationId: bookingDetails.locationId,
-      tableId: bookingDetails.tableId,
-      noPeople: bookingDetails.noPeople,
-      preferences: bookingDetails.preferences,
-      itemIds: [1],
+      ...bookingDetails,
+      itemIds: [], // Just booking the table
       status: BookingStatus.IN_PROGRESS,
     };
 
@@ -115,18 +129,24 @@ const FormIR: React.FC = () => {
     try {
       // Manually trigger form validation
       const values = await form.validateFields();
+  
+      // Combine date and time into a single string (assuming date is in YYYY-MM-DD format)
+      const bookingDate = `${values.date.format('YYYY-MM-DD')} ${values.time.format('HH:mm')}`;
+  
+      // Add bookingDate to bookingDetails object
       const bookingDetails = {
         name: values.name,
         phoneNumber: values.phone,
-        email: values.email,
+        mail: values.email,
         locationId: selectedLocationId as number,
         tableId: values.table,
         noPeople: values.persons,
         preferences: values.preferences,
+        bookingDate,  // Add the formatted bookingDate
       };
-
+  
       dispatch(setBookingDetails(bookingDetails));
-
+  
       // Navigate to restaurant menu page
       navigate(AppRoutes.IN_RESTAURANT, { state: { restaurantId } });
     } catch (error) {
@@ -135,7 +155,7 @@ const FormIR: React.FC = () => {
     }
   };
 
-  if (isRestaurantLoading || isLocationsLoading) {
+  if (isRestaurantLoading || isLocationsLoading || isCheckingTableAvailability) {
     return <p>Loading...</p>;
   }
 
@@ -184,6 +204,22 @@ const FormIR: React.FC = () => {
             <Input placeholder="Introduce E-mail" />
           </Form.Item>
 
+          <Form.Item 
+            name="date"
+            label="Data Rezervarii"
+            rules={[{ required: true, message: 'Va rog selectati o data!' }]}
+            >
+            <DatePicker format="YYYY-MM-DD"/>
+          </Form.Item>
+
+          <Form.Item 
+            name="time"
+            label="Ora Rezervarii"
+            rules={[{ required: true, message: 'Va rog selectati o ora!' }]}
+            >
+            <TimePicker format="HH:mm" />
+          </Form.Item>
+
           <Form.Item
             label="Filiala"
             name="location"
@@ -198,12 +234,22 @@ const FormIR: React.FC = () => {
             </Select>
           </Form.Item>
 
+          {/* Display an alert if no tables are available */}
+          {hasAvailableTable === false && (
+            <Alert
+              message="Nu sunt mese disponibile"
+              description="Vă rugăm să alegeți o altă filială."
+              type="warning"
+              showIcon
+            />
+          )}
+
           <Form.Item
             label="Mese disponibile"
             name="tables"
-            rules={[{ required: true, message: 'Va rog selectati o masa!' }]}
+            rules={[{ required: false, message: 'Va rog selectati o masa!' }]}
           >
-            <Select placeholder="Selectati masa disponibila">
+            <Select placeholder="Selectati masa disponibila" disabled={hasAvailableTable === false}>
               {availableTables?.map((table) => (
                 <Select.Option key={table.id} value={table.id}>
                   {`Masa ${table.id}`}
@@ -215,7 +261,7 @@ const FormIR: React.FC = () => {
           <Form.Item
             label="Numar Persoane"
             name="persons"
-            rules={[{ required: true, message: 'Va rog introduce-ti numarul persoanelor!' }]}
+            rules={[{ required: false, message: 'Va rog introduce-ti numarul persoanelor!' }]}
           >
             <InputNumber />
           </Form.Item>

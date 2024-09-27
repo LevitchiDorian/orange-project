@@ -6,11 +6,12 @@ import { orderType } from '../../entities/enum/orderType';
 interface BookingDetails {
   name: string;
   phoneNumber: string;
-  email: string;
+  mail: string;
   locationId: number;
   tableId?: number | null;
   noPeople?: number;
   preferences?: string;
+  bookingDate: string;
 }
 
 interface OrderState {

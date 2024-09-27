@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Form, Input, Select } from "antd";
+import { DatePicker, Form, Input, Select, TimePicker } from "antd";
 import './FormTA.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,6 +17,8 @@ interface FormValues {
   email: string;
   location: string;
   preferences?: string;
+  date: string;
+  time:string;
 }
 
 const { Option } = Select;
@@ -67,40 +69,48 @@ const FormTA: React.FC = () => {
 
 
   const cartItems = useSelector((state: RootState) => state.cart.items);
-
-  const itemIds = cartItems.map((item) => item.id);
+  const itemIds = cartItems.flatMap(item => Array(item.quantity).fill(item.id));
 
   const onFinish = (values: FormValues) => {
+    // Combine date and time into a single string
+    const bookingDate = values.date && values.time 
+    ? `${(values.date as any)?.format('YYYY-MM-DD')} ${(values.time as any)?.format('HH:mm')}`
+    : '';
+  
     const bookingDetails = {
       name: values.name,
       phoneNumber: values.phone,
-      email: values.email,  
+      mail: values.email,  // email for internal use
       locationId: selectedLocationId as number,
       tableId: null,
       noPeople: 0,
       preferences: values.preferences,
+      bookingDate, // Add the booking date to bookingDetails
     };
-
-
+     // Dispatch the booking details to the order slice
     dispatch(setBookingDetails(bookingDetails));
-
-
+  
+    // Create the booking object using bookingDetails and itemIds from cart
     const booking: IBookingDTO = {
       name: bookingDetails.name,
       phoneNumber: bookingDetails.phoneNumber,
-      mail: bookingDetails.email,
+      mail: bookingDetails.mail,  // Map email to mail in IBookingDTO
       noPeople: bookingDetails.noPeople,
       preferences: bookingDetails.preferences,
       locationId: bookingDetails.locationId,
-      tableId: bookingDetails.tableId,
-      itemIds: itemIds,
-      status: BookingStatus.IN_PROGRESS, 
+      tableId: bookingDetails.tableId, // Ensure this is updated with a valid table ID
+      itemIds: itemIds, // Use item IDs from the cart
+      status: BookingStatus.IN_PROGRESS, // Set default status
+      bookingDate: bookingDetails.bookingDate, // Ensure bookingDate is included
     };
-
+  
+    // Pass the booking object to the submitBooking function
     submitBooking(booking);
-
+  
+    // Navigate to the main page after submitting
     navigate(AppRoutes.MAIN);
   };
+  
 
   if (isRestaurantLoading || isLocationsLoading) {
     return <p>Loading...</p>;
@@ -149,6 +159,22 @@ const FormTA: React.FC = () => {
             rules={[{ type: 'email', required: true, message: 'Va rog introduce-ti un E-mail!' }]}
           >
             <Input placeholder="Introduce E-mail" />
+          </Form.Item>
+
+          <Form.Item 
+            name="date"
+            label="Data Rezervarii"
+            rules={[{ required: true, message: 'Va rog selectati o data!' }]}
+            >
+            <DatePicker format="YYYY-MM-DD" />
+          </Form.Item>
+
+          <Form.Item 
+            name="time"
+            label="Ora Rezervarii"
+            rules={[{ required: true, message: 'Va rog selectati o ora!' }]}
+            >
+            <TimePicker format="HH:mm" />
           </Form.Item>
 
           <Form.Item

@@ -14,6 +14,7 @@ export interface IBookingDTO {
   locationId: number;          
   tableId?: number | null;             
   itemIds: number[];            
-  status: BookingStatus;        
+  status: BookingStatus;
+  bookingDate: string;        
 }
   
