@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Form, Input, Select } from "antd";
+import { DatePicker, Form, Input, Select, TimePicker } from "antd";
 import './FormTA.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -152,6 +152,22 @@ const FormTA: React.FC = () => {
             rules={[{ type: 'email', required: true, message: 'Va rog introduce-ti un E-mail!' }]}
           >
             <Input placeholder="Introduce E-mail" />
+          </Form.Item>
+
+          <Form.Item 
+            name="date"
+            label="Data Rezervarii"
+            rules={[{ required: true, message: 'Va rog selectati o data!' }]}
+            >
+            <DatePicker />
+          </Form.Item>
+
+          <Form.Item 
+            name="time"
+            label="Ora Rezervarii"
+            rules={[{ required: true, message: 'Va rog selectati o ora!' }]}
+            >
+            <TimePicker format="HH:mm" />
           </Form.Item>
 
           <Form.Item

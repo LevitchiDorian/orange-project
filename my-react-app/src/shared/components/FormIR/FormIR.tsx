@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import styled from 'styled-components';
-import { Form, Input, InputNumber, Select, message } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import { DatePicker, Form, Input, InputNumber, Select, TimePicker } from 'antd';
+import { useDispatch } from 'react-redux';
 import { useGetAllRestaurantsQuery, useGetLocationsByRestaurantIdQuery, useGetTablesByLocationIdQuery } from '../../../store/apiSlice';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { AppRoutes } from '../../../app/Router';
 import { setBookingDetails } from '../../../features/order/orderSlice';
-import { RootState } from '../../../app/store';
 import { useBooking } from '../../../hooks/useBooking'; // Import your custom hook
 import { BookingStatus, IBookingDTO } from '../../../entities/BookingDTO';
 
@@ -62,8 +61,6 @@ const FormIR: React.FC = () => {
   const [selectedLocationId, setSelectedLocationId] = useState<number | null>(null);
   const [hasAvailableTable, setHasAvailableTable] = useState<boolean | null>(null);
   const { submitBooking } = useBooking(); // Use custom hook
-
-  const items = useSelector((state: RootState) => state.order.items); // Get cart items from Redux state
 
   const { data: restaurantData, isLoading: isRestaurantLoading } = useGetAllRestaurantsQuery({
     categoryIds: [],
@@ -187,6 +184,22 @@ const FormIR: React.FC = () => {
             <Input placeholder="Introduce E-mail" />
           </Form.Item>
 
+          <Form.Item 
+            name="date"
+            label="Data Rezervarii"
+            rules={[{ required: true, message: 'Va rog selectati o data!' }]}
+            >
+            <DatePicker />
+          </Form.Item>
+
+          <Form.Item 
+            name="time"
+            label="Ora Rezervarii"
+            rules={[{ required: true, message: 'Va rog selectati o ora!' }]}
+            >
+            <TimePicker format="HH:mm" />
+          </Form.Item>
+
           <Form.Item
             label="Filiala"
             name="location"
@@ -204,12 +217,12 @@ const FormIR: React.FC = () => {
           <Form.Item
             label="Mese disponibile"
             name="tables"
-            rules={[{ required: true, message: 'Va rog selectati o masa!' }]}
+            rules={[{ required: false, message: 'Va rog selectati o masa!' }]}
           >
             <Select placeholder="Selectati masa disponibila">
               {availableTables?.map((table) => (
                 <Select.Option key={table.id} value={table.id}>
-                  {`Masa ${table.id} (${table.capacity} persoane)`}
+                  {`Masa ${table.id}`}
                 </Select.Option>
               ))}
             </Select>
@@ -218,7 +231,7 @@ const FormIR: React.FC = () => {
           <Form.Item
             label="Numar Persoane"
             name="persons"
-            rules={[{ required: true, message: 'Va rog introduce-ti numarul persoanelor!' }]}
+            rules={[{ required: false, message: 'Va rog introduce-ti numarul persoanelor!' }]}
           >
             <InputNumber />
           </Form.Item>
