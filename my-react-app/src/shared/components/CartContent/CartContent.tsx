@@ -37,23 +37,27 @@ const CartContent: React.FC = () => {
       cart.forEach(item => {
         dispatch(addItemToOrder({ itemId: item.id, quantity: item.quantity }));  // Adding individual items to the order
       });
-
+  
       if (order.orderType === orderType.TAKEAWAY) {
         navigate(AppRoutes.FORM_TAKEAWAY, { state: { restaurantId: currentRestaurantId } });
       } else if (order.orderType === orderType.IN_RESTAURANT) {
+        // Set a default value for bookingDate if it is undefined
+        const bookingDate = order.bookingDetails?.bookingDate || new Date().toISOString(); // Use current date as a fallback
+        
         // Construct the IBookingDTO object
         const bookingDTO: IBookingDTO = {
           name: order.bookingDetails?.name || '',
           phoneNumber: order.bookingDetails?.phoneNumber || '',
-          mail: order.bookingDetails?.email || '',
+          mail: order.bookingDetails?.mail || '',
           noPeople: order.bookingDetails?.noPeople,
           preferences: order.bookingDetails?.preferences,
           locationId: order.bookingDetails?.locationId || 0,
           tableId: order.bookingDetails?.tableId,
-          itemIds: cart.map(item => item.id), // Collect item IDs from the cart
+          itemIds: cart.flatMap(item => Array(item.quantity).fill(item.id)), // Collect item IDs from the cart
           status: BookingStatus.IN_PROGRESS, // Set status to IN_PROGRESS
+          bookingDate, // Ensure bookingDate is always a valid string
         };
-
+  
         // Pass the IBookingDTO object to the submitBooking function
         try {
           console.log(bookingDTO);
