@@ -30,6 +30,11 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.ant-notification-top {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 a{
   text-decoration: none;
   color: inherit;

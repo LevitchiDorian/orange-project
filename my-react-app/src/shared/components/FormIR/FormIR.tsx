@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Form, Input, InputNumber, Select, message } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import { Form, Input, InputNumber, Select} from 'antd';
+import { useDispatch } from 'react-redux';
 import { useGetAllRestaurantsQuery, useGetLocationsByRestaurantIdQuery, useGetTablesByLocationIdQuery } from '../../../store/apiSlice';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { AppRoutes } from '../../../app/Router';
 import { setBookingDetails } from '../../../features/order/orderSlice';
-import { RootState } from '../../../app/store';
-import { useBooking } from '../../../hooks/useBooking'; // Import your custom hook
+import { useBooking } from '../../../hooks/useBooking';
 import { BookingStatus, IBookingDTO } from '../../../entities/BookingDTO';
 
 interface FormValues {
@@ -54,16 +53,14 @@ const CustomButton = styled.button`
 `;
 
 const FormIR: React.FC = () => {
-  const [form] = Form.useForm();
+  const [form] = Form.useForm();  // No need to specify FormInstance type here
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const { restaurantId } = location.state || {};
   const [selectedLocationId, setSelectedLocationId] = useState<number | null>(null);
   const [hasAvailableTable, setHasAvailableTable] = useState<boolean | null>(null);
-  const { submitBooking } = useBooking(); // Use custom hook
-
-  const items = useSelector((state: RootState) => state.order.items); // Get cart items from Redux state
+  const { submitBooking } = useBooking();  // Use custom hook
 
   const { data: restaurantData, isLoading: isRestaurantLoading } = useGetAllRestaurantsQuery({
     categoryIds: [],
@@ -80,7 +77,7 @@ const FormIR: React.FC = () => {
   // Handle location change
   const handleLocationChange = (locationId: number) => {
     setSelectedLocationId(locationId);
-    setHasAvailableTable(null); // Reset availability status when selecting a new location
+    setHasAvailableTable(null);  // Reset availability status when selecting a new location
   };
 
   // Handle form submission for booking
@@ -209,7 +206,7 @@ const FormIR: React.FC = () => {
             <Select placeholder="Selectati masa disponibila">
               {availableTables?.map((table) => (
                 <Select.Option key={table.id} value={table.id}>
-                  {`Masa ${table.id} (${table.capacity} persoane)`}
+                  {`Masa ${table.id}`}
                 </Select.Option>
               ))}
             </Select>
@@ -223,7 +220,7 @@ const FormIR: React.FC = () => {
             <InputNumber />
           </Form.Item>
 
-          <Form.Item name={['text', 'preferinte']} label="Preferinte">
+          <Form.Item name="preferences" label="Preferinte">
             <Input.TextArea />
           </Form.Item>
 

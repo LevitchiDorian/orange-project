@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 
 const MainPage: React.FC = () => {
   const location = useLocation();
-  const { restaurantId } = location.state || { restaurantId: 1 }; 
+  const { restaurantId } = location.state || { restaurantId: 1 };
 
   return (
     <div className="app">

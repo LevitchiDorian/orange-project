@@ -65,43 +65,40 @@ const FormTA: React.FC = () => {
   const restaurant = restaurantData?.find((r) => r.id === restaurantId);
   const { data: locationsData, isLoading: isLocationsLoading } = useGetLocationsByRestaurantIdQuery(restaurantId);
 
-  // Get items from the cart in the Redux store
+
   const cartItems = useSelector((state: RootState) => state.cart.items);
 
-  // Extract only item IDs from the cart
   const itemIds = cartItems.map((item) => item.id);
 
   const onFinish = (values: FormValues) => {
     const bookingDetails = {
       name: values.name,
       phoneNumber: values.phone,
-      email: values.email,  // email for internal use
+      email: values.email,  
       locationId: selectedLocationId as number,
       tableId: null,
       noPeople: 0,
       preferences: values.preferences,
     };
 
-    // Dispatch the booking details to the order slice
+
     dispatch(setBookingDetails(bookingDetails));
 
-    // Create the booking object using bookingDetails and itemIds from cart
+
     const booking: IBookingDTO = {
       name: bookingDetails.name,
       phoneNumber: bookingDetails.phoneNumber,
-      mail: bookingDetails.email,  // Map email to mail in IBookingDTO
+      mail: bookingDetails.email,
       noPeople: bookingDetails.noPeople,
       preferences: bookingDetails.preferences,
       locationId: bookingDetails.locationId,
-      tableId: bookingDetails.tableId, // Ensure this is updated with a valid table ID
-      itemIds: itemIds, // Use item IDs from the cart
-      status: BookingStatus.IN_PROGRESS, // Set default status
+      tableId: bookingDetails.tableId,
+      itemIds: itemIds,
+      status: BookingStatus.IN_PROGRESS, 
     };
 
-    // Pass the booking object to the submitBooking function
     submitBooking(booking);
 
-    // Navigate to the main page after submitting
     navigate(AppRoutes.MAIN);
   };
 

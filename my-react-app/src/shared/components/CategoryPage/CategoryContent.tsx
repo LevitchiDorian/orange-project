@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useGetAllRestaurantsQuery } from '../../../store/apiSlice'; // This comes from your apiSlice
 import './Categorycontent.css';
+import { AppRoutes } from '../../../app/Router';
 
 const CategoryPage: React.FC = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const CategoryPage: React.FC = () => {
   if (error) return <p>Error loading restaurants</p>;
 
   const handleRestaurantClick = (restaurantId: number) => {
-    navigate('/order-type', { state: { restaurantId } });
+    navigate(AppRoutes.ORDER_TYPE, { state: { restaurantId } });
   };
 
   return (
