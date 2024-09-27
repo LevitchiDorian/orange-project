@@ -34,12 +34,15 @@ const OrderTypeContent: React.FC = () => {
     navigate(AppRoutes.TAKEAWAY, { state: { restaurantId } });
   };
 
+  
   const handleInRestaurantClick = () => {
     if(!orderState.bookingDetails){
       dispatch(setOrderType(orderType.IN_RESTAURANT));
       dispatch(setCurrentRestaurant(restaurantId));
     }
+
     navigate(AppRoutes.FORM_IN_RESTAURANT, { state: { restaurantId } });
+    
   };
 
   if (isLoading) {

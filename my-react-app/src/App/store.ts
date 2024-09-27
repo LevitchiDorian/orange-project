@@ -3,10 +3,12 @@ import apiSlice from '../store/apiSlice';
 import cartReducer from '../features/cart/cartSlice'
 import orderReducer from '../features/order/orderSlice'
 import spinnerReducer from '../features/spinner/spinnerSlice'
+import notificationReducer from '../features/notification/notificationSlice'
 
 
 export const store = configureStore({
   reducer: {
+    notification: notificationReducer,
     spinner: spinnerReducer,
     order: orderReducer,
     cart: cartReducer,

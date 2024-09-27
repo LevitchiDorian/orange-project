@@ -67,10 +67,8 @@ const FormTA: React.FC = () => {
   const restaurant = restaurantData?.find((r) => r.id === restaurantId);
   const { data: locationsData, isLoading: isLocationsLoading } = useGetLocationsByRestaurantIdQuery(restaurantId);
 
-  // Get items from the cart in the Redux store
-  const cartItems = useSelector((state: RootState) => state.cart.items);
 
-  // Extract only item IDs from the cart
+  const cartItems = useSelector((state: RootState) => state.cart.items);
   const itemIds = cartItems.flatMap(item => Array(item.quantity).fill(item.id));
 
   const onFinish = (values: FormValues) => {
@@ -89,8 +87,7 @@ const FormTA: React.FC = () => {
       preferences: values.preferences,
       bookingDate, // Add the booking date to bookingDetails
     };
-  
-    // Dispatch the booking details to the order slice
+     // Dispatch the booking details to the order slice
     dispatch(setBookingDetails(bookingDetails));
   
     // Create the booking object using bookingDetails and itemIds from cart

@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { Routing } from './router';
 import { store } from './app/store';
+import NotificationManager from './shared/components/NotificationManager/NotificationManager';
 
 // // const App: React.FC = () => {
 // //   return (
@@ -14,6 +15,7 @@ import { store } from './app/store';
 // }
 const App: React.FC = () => (
   <Provider store={store}>
+    <NotificationManager/>
     <BrowserRouter>
       <Routing />
     </BrowserRouter>

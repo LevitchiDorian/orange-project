@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { DatePicker, Form, Input, InputNumber, Select, TimePicker, Alert } from 'antd';
 import { useDispatch } from 'react-redux';
@@ -6,7 +6,7 @@ import { useGetAllRestaurantsQuery, useGetLocationsByRestaurantIdQuery, useGetTa
 import { useNavigate, useLocation } from 'react-router-dom';
 import { AppRoutes } from '../../../app/Router';
 import { setBookingDetails } from '../../../features/order/orderSlice';
-import { useBooking } from '../../../hooks/useBooking'; // Import your custom hook
+import { useBooking } from '../../../hooks/useBooking';
 import { BookingStatus, IBookingDTO } from '../../../entities/BookingDTO';
 
 interface FormValues {
@@ -55,7 +55,7 @@ const CustomButton = styled.button`
 `;
 
 const FormIR: React.FC = () => {
-  const [form] = Form.useForm();
+  const [form] = Form.useForm();  // No need to specify FormInstance type here
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -91,7 +91,7 @@ const FormIR: React.FC = () => {
   // Handle location change
   const handleLocationChange = (locationId: number) => {
     setSelectedLocationId(locationId);
-    setHasAvailableTable(null); // Reset availability status when selecting a new location
+    setHasAvailableTable(null);  // Reset availability status when selecting a new location
   };
 
   // Handle form submission for booking
@@ -266,7 +266,7 @@ const FormIR: React.FC = () => {
             <InputNumber />
           </Form.Item>
 
-          <Form.Item name={['text', 'preferinte']} label="Preferinte">
+          <Form.Item name="preferences" label="Preferinte">
             <Input.TextArea />
           </Form.Item>
 
