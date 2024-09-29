@@ -32,9 +32,9 @@ const prefixSelector = (
 );
 
 const CustomButton = styled.button`
-  background-color: #FFEFDD;
+  background-color: #f9cc98;
   color: #181a1b;
-  border: 2px solid #FFEFDD;
+  border: 2px solid #f9cc98;
   padding: 10px 20px;
   font-size: 16px;
   font-weight: 400;
@@ -43,9 +43,9 @@ const CustomButton = styled.button`
   transition: background-color 0.3s, color 0.3s;
 
   &:hover {
-    background-color: #f9cc98;
+    background-color: #f6af5e;
     color: #181a1b;
-    border-color: #f9cc98;
+    border-color: #f6af5e;
   }
 
   &:disabled {
@@ -183,15 +183,15 @@ const FormIR: React.FC = () => {
           <Form.Item
             label="Nume/Prenume"
             name="name"
-            rules={[{ required: true, message: 'Va rog introduce-ti Nume/Prenume' }]}
+            rules={[{ required: true, message: 'Vă rog introduceți un Nume/Prenume' }]}
           >
-            <Input placeholder="Introduce Nume/Prenume" />
+            <Input placeholder="Introduce un Nume/Prenume" />
           </Form.Item>
 
           <Form.Item
             name="phone"
             label="Telefon"
-            rules={[{ required: true, message: 'Va rog introduce-ti un numar de contact!' }]}
+            rules={[{ required: true, message: 'Vă rog introduceți un număr de contact!' }]}
           >
             <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
           </Form.Item>
@@ -199,33 +199,33 @@ const FormIR: React.FC = () => {
           <Form.Item
             name="email"
             label="E-Mail"
-            rules={[{ type: 'email', required: true, message: 'Va rog introduce-ti un E-mail!' }]}
+            rules={[{ type: 'email', required: true, message: 'Vă rog introduceți un E-mail!' }]}
           >
             <Input placeholder="Introduce E-mail" />
           </Form.Item>
 
           <Form.Item 
             name="date"
-            label="Data Rezervarii"
-            rules={[{ required: true, message: 'Va rog selectati o data!' }]}
+            label="Data Rezervării"
+            rules={[{ required: true, message: 'Vă rog selectați o dată!' }]}
             >
             <DatePicker format="YYYY-MM-DD"/>
           </Form.Item>
 
           <Form.Item 
             name="time"
-            label="Ora Rezervarii"
-            rules={[{ required: true, message: 'Va rog selectati o ora!' }]}
+            label="Ora Rezervării"
+            rules={[{ required: true, message: 'Vă rog selectați o oră!' }]}
             >
             <TimePicker format="HH:mm" />
           </Form.Item>
 
           <Form.Item
-            label="Filiala"
+            label="Filială"
             name="location"
-            rules={[{ required: true, message: hasAvailableTable === false ? 'No tables available.' : 'Va rog selectati o filiala' }]}
+            rules={[{ required: true, message: hasAvailableTable === false ? 'Nu sunt mese disponibile.' : 'Vă rog selectați o filială' }]}
           >
-            <Select placeholder="Selectati filiala" onChange={handleLocationChange}>
+            <Select placeholder="Selectați filiala" onChange={handleLocationChange}>
               {locationsData?.map((location) => (
                 <Select.Option key={location.id} value={location.id}>
                   {location.address}
@@ -247,9 +247,9 @@ const FormIR: React.FC = () => {
           <Form.Item
             label="Mese disponibile"
             name="tables"
-            rules={[{ required: false, message: 'Va rog selectati o masa!' }]}
+            rules={[{ required: false, message: 'Vă rog selectați o masă!' }]}
           >
-            <Select placeholder="Selectati masa disponibila" disabled={hasAvailableTable === false}>
+            <Select placeholder="Selectați masa disponibilă" disabled={hasAvailableTable === false}>
               {availableTables?.map((table) => (
                 <Select.Option key={table.id} value={table.id}>
                   {`Masa ${table.id}`}
@@ -259,14 +259,14 @@ const FormIR: React.FC = () => {
           </Form.Item>
 
           <Form.Item
-            label="Numar Persoane"
+            label="Număr Persoane"
             name="persons"
-            rules={[{ required: false, message: 'Va rog introduce-ti numarul persoanelor!' }]}
+            rules={[{ required: false, message: 'Vă rog introduceți numărul persoanelor!' }]}
           >
             <InputNumber />
           </Form.Item>
 
-          <Form.Item name="preferences" label="Preferinte">
+          <Form.Item name="preferences" label="Preferințe">
             <Input.TextArea />
           </Form.Item>
 

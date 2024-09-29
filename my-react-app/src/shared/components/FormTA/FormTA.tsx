@@ -32,9 +32,9 @@ const prefixSelector = (
 );
 
 const CustomButton = styled.button`
-  background-color: #FFEFDD;
+  background-color: #f9cc98;
   color: #181a1b;
-  border: 2px solid #FFEFDD;
+  border: 2px solid #f9cc98;
   padding: 10px 20px;
   font-size: 16px;
   font-weight: 400;
@@ -43,9 +43,9 @@ const CustomButton = styled.button`
   transition: background-color 0.3s, color 0.3s;
 
   &:hover {
-    background-color: #f9cc98;
+    background-color: #f6af5e;
     color: #181a1b;
-    border-color: #f9cc98;
+    border-color: #f6af5e;
   }
 `;
 
@@ -140,7 +140,7 @@ const FormTA: React.FC = () => {
           <Form.Item 
             label="Nume/Prenume"
             name="name"
-            rules={[{ required: true, message: 'Va rog introduce-ti Nume/Prenume' }]}
+            rules={[{ required: true, message: 'Vă rog introduceți un Nume/Prenume' }]}
           >
             <Input placeholder="Introduce Nume/Prenume" />
           </Form.Item>
@@ -148,7 +148,7 @@ const FormTA: React.FC = () => {
           <Form.Item
             name="phone"
             label="Telefon"
-            rules={[{ required: true, message: 'Va rog introduce-ti un numar de contact!' }]}
+            rules={[{ required: true, message: 'Vă rog introduceți un număr de contact!' }]}
           >
             <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
           </Form.Item>
@@ -156,23 +156,23 @@ const FormTA: React.FC = () => {
           <Form.Item
             name="email"
             label="E-Mail"
-            rules={[{ type: 'email', required: true, message: 'Va rog introduce-ti un E-mail!' }]}
+            rules={[{ type: 'email', required: true, message: 'Vă rog introduceți un E-mail!' }]}
           >
             <Input placeholder="Introduce E-mail" />
           </Form.Item>
 
           <Form.Item 
             name="date"
-            label="Data Rezervarii"
-            rules={[{ required: true, message: 'Va rog selectati o data!' }]}
+            label="Data Rezervării"
+            rules={[{ required: true, message: 'Vă rog selectați o dată!' }]}
             >
             <DatePicker format="YYYY-MM-DD" />
           </Form.Item>
 
           <Form.Item 
             name="time"
-            label="Ora Rezervarii"
-            rules={[{ required: true, message: 'Va rog selectati o ora!' }]}
+            label="Ora Rezervării"
+            rules={[{ required: true, message: 'Vă rog selectați o oră!' }]}
             >
             <TimePicker format="HH:mm" />
           </Form.Item>
@@ -180,10 +180,10 @@ const FormTA: React.FC = () => {
           <Form.Item
             label="Filiala"
             name="location"
-            rules={[{ required: true, message: 'Va rog selectati o filiala' }]}
+            rules={[{ required: true, message: 'Vă rog selectați o filială' }]}
           >
             <Select
-              placeholder="Selectati filiala"
+              placeholder="Selectați filiala"
               onChange={(value) => setSelectedLocationId(value)}
             >
               {locationsData?.map((location) => (
@@ -195,8 +195,8 @@ const FormTA: React.FC = () => {
           </Form.Item>
 
           <Form.Item
-            name={['text', 'preferinte']} 
-            label="Preferinte"
+            name={['text', 'preferințe']} 
+            label="Preferințe"
           >
             <Input.TextArea />
           </Form.Item>

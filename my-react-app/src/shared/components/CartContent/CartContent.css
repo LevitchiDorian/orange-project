@@ -25,6 +25,20 @@
     font-size: 32px;
     font-weight: 800;
     text-align: center;
+    padding-right: 10px;
+}
+
+.cart-quantity {
+    background-color: #f9cc98; /* Change this to your desired background color */
+    color: #181a1b; /* Text color */
+    border-radius: 50%; /* Make it circular */
+    width: 30px; /* Set width */
+    height: 30px; /* Set height */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center text horizontally */
+    align-items: center; /* Center text vertically */
+    font-size: 16px; /* Adjust font size for quantity */
+    font-weight: 700;
 }
 
 .cart-items {
@@ -50,17 +64,21 @@
 }
 
 .cart-actions button {
-    padding: 15px 30px;
-    background-color: #d9534f;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    background-color: #f9cc98;
+    color: #181a1b;
+    border: 2px solid #f9cc98;
+    padding: 10px 20px;
     font-size: 16px;
+    font-weight: 400;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .cart-actions button:hover {
-    background-color: #c9302c;
+    background-color: #f6af5e;
+    color: #181a1b;
+    border-color: #f6af5e;
 }
 
 

@@ -16,10 +16,10 @@ const Navbar: React.FC = () => {
   return (
     <div className='navbar'>
       <div className='logo'>
-        <div onClick={() => navigate(AppRoutes.MAIN)}> ReadyToEat</div>
+        <div onClick={() => navigate(AppRoutes.MAIN)}> EasyToEat</div>
       </div>
       <div className='cart'>
-        <span className='cart-text' onClick={() => navigate(AppRoutes.CART)}>Cos</span>
+        <span className='cart-text' onClick={() => navigate(AppRoutes.CART)}>Coș</span>
         <div onClick={() => navigate(AppRoutes.CART)}><ShoppingCartOutlined /></div>
         {cart.length > 0 && <div className='dot'></div>}
       </div>

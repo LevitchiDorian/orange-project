@@ -42,7 +42,7 @@ export const AboutUs: React.FC = () => {
         />
       </svg>
       <section className={styles.aboutUs} ref={aboutUsRef}>
-        <h2>About Us</h2>
+        <h2>Despre Noi</h2>
         <p>
           {aboutText.split(' ').map((word, index) => (
             <span
