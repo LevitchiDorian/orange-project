@@ -33,6 +33,7 @@
  .textLine {
   display: inline-block;
   opacity: 0;
+  margin-right: 0.3rem;
 }
 
 .complexFadeIn {

@@ -23,7 +23,7 @@ export const AboutUs: React.FC = () => {
     };
   }, []);
 
-  const aboutText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+  const aboutText = "La EasyToEat, simplificăm modul în care comanzi mâncarea preferată. Alege restaurantul și filiala, optează pentru la pachet sau pe loc, iar dacă dorești să mănânci în restaurant, rezervă rapid o masă și comandă-ți felurile dorite. Totul într-un singur loc, ușor și rapid!";
 
   return (
     <>
