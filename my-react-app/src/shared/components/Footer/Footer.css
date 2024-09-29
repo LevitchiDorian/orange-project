@@ -15,17 +15,17 @@
 
   .contacts{
     margin: 10px 0;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 300;
   }
 
   .contacts h6{
-    font-size: 16px;
+    font-size: 18px;
   }
 
   .copyright{
     padding-top: 30px;
-    font-size: 10px;
+    font-size: 12px;
   }
 
   .contacts, .copyright {

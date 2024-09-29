@@ -23,6 +23,9 @@ const CartContent: React.FC = () => {
 
   const totalPrice = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
+  // Calculate the total number of items in the cart (sum of quantities)
+  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+
   const handleQuantityChange = (id: number, newQuantity: number) => {
     if (newQuantity > 0) {
       dispatch(updateQuantity({ id, quantity: newQuantity }));
@@ -78,6 +81,7 @@ const CartContent: React.FC = () => {
     <div className="cart-content">
       <div className="cart-header">
         <h2 className="cart-title">Coșul Tău</h2>
+        <div className='cart-quantity'>{totalItems}</div>
       </div>
 
       <div className="cart-items">

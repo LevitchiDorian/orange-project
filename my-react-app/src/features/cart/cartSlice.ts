@@ -37,7 +37,7 @@ const cartSlice = createSlice({
       } else {
         // Show a notification or handle the scenario where items from another restaurant are being added
         // This logic should be handled in the UI
-        console.log('Cannot add items from a different restaurant. Please clear the cart first.');
+        console.log('Nu se pot adăuga articole dintr-un alt restaurant. Vă rugăm să goliți mai întâi coșul.');
       }
     },
     removeFromCart(state, action: PayloadAction<number>) {

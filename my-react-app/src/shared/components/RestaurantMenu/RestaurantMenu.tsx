@@ -48,16 +48,16 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ restaurantId }) => {
         
         // Notification for item added to cart with custom duration
         notification.success({
-          message: 'Item Added to Cart',
-          description: 'Your item was added to the cart.',
+          message: 'Articol adăugat în coș!',
+          description: 'Articolul dvs. a fost adăugat în coș.',
           duration: 1, // Notification will disappear after 1 second
           placement: 'top',
         });
       } else {
         // Conflict notification with a button to clear the cart
         notification.warning({
-          message: 'Multiple Restaurant Conflict',
-          description: 'You can only add items from one restaurant at a time.',
+          message: 'Conflict cu restaurante multiple!',
+          description: 'Poți să adaugi doar articole de la un restaurant la o comandă.',
           placement: 'top',
           duration: 2,
           btn: (
@@ -67,7 +67,7 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ restaurantId }) => {
                 dispatch(clearCart());
               }}
             >
-              Clear Cart
+              Golește Coș
             </Button>
           ),
         });
@@ -79,16 +79,16 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ restaurantId }) => {
 
         // Notification for item added to cart with custom duration
         notification.success({
-          message: 'Item Added to Cart',
-          description: 'Your item was added to the cart.',
+          message: 'Articol adăugat în coș!',
+          description: 'Articolul dvs. a fost adăugat în coș.',
           duration: 2, // Notification will disappear after 2 seconds
           placement: 'top',
         });
       } else {
         // Conflict notification for in-restaurant case
         notification.warning({
-          message: 'Multiple Restaurant Conflict',
-          description: 'You can only order from the restaurant you are currently ordering from.',
+          message: 'Conflict cu restaurante multiple!',
+          description: 'Poți să adaugi doar articole de la un restaurant la o comandă.',
           duration: 3,
           placement: 'top',
           btn: (
@@ -98,16 +98,16 @@ const RestaurantMenu: React.FC<RestaurantMenuProps> = ({ restaurantId }) => {
                 if (orderRestaurantId) {
                   navigate(AppRoutes.IN_RESTAURANT, { state: { restaurantId: orderRestaurantId } }); // Pass the correct restaurant ID in state
                 } else {
-                  console.error('orderRestaurantId is undefined.');
+                  console.error('orderRestaurantId este nedefinit.');
                   notification.error({
-                    message: 'Error',
-                    description: 'Unable to navigate, restaurant ID is undefined.',
+                    message: 'Eroare!',
+                    description: 'Nu se poate naviga, ID-ul restaurantului este nedefinit.',
                     placement: 'top',
                   });
                 }
               }}
             >
-              Go to Restaurant
+              Mergi la Restaurant
             </Button>
           ),
         });

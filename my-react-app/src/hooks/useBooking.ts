@@ -29,8 +29,8 @@ export const useBooking = () => {
         addNotification({
           id: uuidv4(), // Generate unique ID using uuid
           type: 'success',
-          message: 'Booking Created Successfully',
-          description: `Your booking for ${bookingDetails.name} has been successfully created.`,
+          message: 'Rezervare creată cu succes!',
+          description: `Rezervarea pentru ${bookingDetails.name} a fost creată cu succes. Detaliile rezervării le puteți verifica pe poșta electronică: ${bookingDetails.mail}`,
         })
       );
     } catch (error) {
@@ -39,12 +39,12 @@ export const useBooking = () => {
         addNotification({
           id: uuidv4(), // Generate unique ID for the error notification
           type: 'error',
-          message: 'Error Creating Booking',
-          description: 'There was an issue creating your booking. Please try again.',
+          message: 'Eroare la crearea rezervării!',
+          description: 'A apărut o problemă la crearea rezervării. Vă rugăm să încercați din nou.',
         })
       );
 
-      console.error('Error creating booking:', error);
+      console.error('Eroare la crearea rezervării:', error);
     }
   };
 
