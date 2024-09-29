@@ -52,12 +52,15 @@
     overflow: hidden;
     max-width: 800px;
     margin: 0 auto;
-    padding: 10px 145px;
+    padding: 10px 80px; /* Adjust this to add some padding between the arrows and the edge of the container */
   }
   
   .restaurant-card-container {
     display: flex;
+    justify-content: center; /* Center the cards */
+    align-items: center;     /* Vertically center the cards if needed */
     transition: transform 0.5s ease-in-out;
+    gap: 20px; /* Add spacing between cards */
   }
   
   .restaurant-wrapper {
@@ -121,13 +124,13 @@
     background: rgba(0, 0, 0, 0.6);
     border-radius: 50%;
     color: white;
-    width: 40px; /* Dimensiune mai mare pentru săgeți */
+    width: 40px;
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Umbră mai pronunțată */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   }
   
@@ -139,11 +142,11 @@
   }
   
   .left {
-    left: 20px; /* Poziționare ajustată */
+    left: 25px; /* Poziționare ajustată */
   }
   
   .right {
-    right: 30px; /* Poziționare ajustată */
+    right: 25px; /* Poziționare ajustată */
   }
   
   .svg-icon {
