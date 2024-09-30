@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { DatePicker, Form, Input, InputNumber, Select, TimePicker, Alert } from 'antd';
+import { DatePicker, Form, Input, InputNumber, Select, Alert } from 'antd';
 import { useDispatch } from 'react-redux';
 import { useGetAllRestaurantsQuery, useGetLocationsByRestaurantIdQuery, useGetTablesByLocationIdQuery, useCheckFreeTableByLocationIdQuery } from '../../../store/apiSlice'; // Import useCheckFreeTableByLocationIdQuery
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -8,6 +8,7 @@ import { AppRoutes } from '../../../app/Router';
 import { setBookingDetails } from '../../../features/order/orderSlice';
 import { useBooking } from '../../../hooks/useBooking';
 import { BookingStatus, IBookingDTO } from '../../../entities/BookingDTO';
+import dayjs, { Dayjs } from 'dayjs'; // Import Dayjs instead of Moment.js
 
 interface FormValues {
   name: string;
@@ -64,6 +65,26 @@ const FormIR: React.FC = () => {
   const [hasAvailableTable, setHasAvailableTable] = useState<boolean | null>(null);
   const { submitBooking } = useBooking(); // Use custom hook
 
+  // Generate time options in 15-minute intervals between 08:00 AM and 11:00 PM
+  const generateTimeOptions = () => {
+    const options = [];
+    let currentTime = dayjs('08:00', 'HH:mm'); // Use Dayjs here
+
+    while (currentTime <= dayjs('23:00', 'HH:mm')) {
+      options.push(currentTime.format('HH:mm'));
+      currentTime = currentTime.add(15, 'minute');
+    }
+
+    return options;
+  };
+
+  // Function to disable past dates using Dayjs
+  const disablePastDates = (current: Dayjs) => {
+    return current && current.isBefore(dayjs().startOf('day'));
+  };
+
+  const timeOptions = generateTimeOptions();
+
   const { data: restaurantData, isLoading: isRestaurantLoading } = useGetAllRestaurantsQuery({
     categoryIds: [],
     restaurantName: '',
@@ -96,10 +117,9 @@ const FormIR: React.FC = () => {
 
   // Handle form submission for booking
   const handleSubmit = (values: FormValues) => {
-    // Check if date and time are moment objects before calling format
-    const bookingDate = values.date && values.time 
-      ? `${(values.date as any)?.format('YYYY-MM-DD')} ${(values.time as any)?.format('HH:mm')}`
-      : '';
+    const bookingDate = values.date && values.time
+    ? `${dayjs(values.date).format('YYYY-MM-DD')} ${values.time}` // Ensure values.date is a Dayjs object
+    : '';
 
     const bookingDetails = {
       name: values.name,
@@ -130,8 +150,8 @@ const FormIR: React.FC = () => {
       // Manually trigger form validation
       const values = await form.validateFields();
   
-      // Combine date and time into a single string (assuming date is in YYYY-MM-DD format)
-      const bookingDate = `${values.date.format('YYYY-MM-DD')} ${values.time.format('HH:mm')}`;
+      // Ensure values.date is a Dayjs object and format it correctly
+      const bookingDate = `${dayjs(values.date).format('YYYY-MM-DD')} ${values.time}`;
   
       // Add bookingDate to bookingDetails object
       const bookingDetails = {
@@ -191,7 +211,10 @@ const FormIR: React.FC = () => {
           <Form.Item
             name="phone"
             label="Telefon"
-            rules={[{ required: true, message: 'Vă rog introduceți un număr de contact!' }]}
+            rules={[
+              { required: true, message: 'Vă rog introduceți un număr de contact!' },
+              { len: 8, message: 'Numărul de telefon trebuie să aibă exact 8 cifre!', }
+            ]}
           >
             <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
           </Form.Item>
@@ -209,7 +232,10 @@ const FormIR: React.FC = () => {
             label="Data Rezervării"
             rules={[{ required: true, message: 'Vă rog selectați o dată!' }]}
             >
-            <DatePicker format="YYYY-MM-DD"/>
+            <DatePicker format="YYYY-MM-DD"
+              disabledDate={disablePastDates} // Disable past dates
+            />
+            
           </Form.Item>
 
           <Form.Item 
@@ -217,7 +243,13 @@ const FormIR: React.FC = () => {
             label="Ora Rezervării"
             rules={[{ required: true, message: 'Vă rog selectați o oră!' }]}
             >
-            <TimePicker format="HH:mm" />
+            <Select placeholder="Selectați o oră" style={{width: '150px'}}>
+            {timeOptions.map((time) => (
+              <Option key={time} value={time}>
+                {time}
+              </Option>
+            ))}
+            </Select>
           </Form.Item>
 
           <Form.Item
@@ -261,9 +293,12 @@ const FormIR: React.FC = () => {
           <Form.Item
             label="Număr Persoane"
             name="persons"
-            rules={[{ required: false, message: 'Vă rog introduceți numărul persoanelor!' }]}
+            rules={[
+              { required: true, message: 'Vă rog introduceți numărul persoanelor!' },
+              { type: 'number', min: 1, message: 'Numărul de persoane trebuie să fie mai mare decât 0!' }
+            ]}
           >
-            <InputNumber />
+            <InputNumber min={1}/>
           </Form.Item>
 
           <Form.Item name="preferences" label="Preferințe">
